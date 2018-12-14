@@ -1,0 +1,19 @@
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/byebug-10.0.2/ext/byebug
+/Users/helium/.rbenv/versions/2.3.0/bin/ruby -r ./siteconf20181213-7976-111ur01.rb extconf.rb
+creating Makefile
+
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR="
+compiling locker.c
+compiling byebug.c
+compiling context.c
+compiling breakpoint.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/byebug-10.0.2/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.bundle ./.gem.20181213-7976-10pqbia/byebug

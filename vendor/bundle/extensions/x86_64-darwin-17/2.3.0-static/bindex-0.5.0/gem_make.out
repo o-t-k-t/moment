@@ -1,0 +1,15 @@
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/bindex-0.5.0/ext/bindex
+/Users/helium/.rbenv/versions/2.3.0/bin/ruby -r ./siteconf20181213-7976-74bsqq.rb extconf.rb
+creating Makefile
+
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" clean
+
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR="
+compiling cruby.c
+linking shared-object bindex/cruby.bundle
+
+current directory: /Users/helium/localwork/moment/vendor/bundle/gems/bindex-0.5.0/ext/bindex
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 cruby.bundle ./.gem.20181213-7976-1am3egg/bindex
