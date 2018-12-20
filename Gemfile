@@ -16,6 +16,9 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'rack', '>= 2.0.6'
 
+# バッチ処理
+gem 'sidekiq'
+
 # フロントエンド
 gem 'bulma-rails'
 gem 'coffee-rails', '~> 4.2'
