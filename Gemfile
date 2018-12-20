@@ -19,6 +19,9 @@ gem 'rack', '>= 2.0.6'
 # バッチ処理
 gem 'sidekiq'
 
+# 外部API
+gem 'ruby_coincheck_client'
+
 # フロントエンド
 gem 'bulma-rails'
 gem 'coffee-rails', '~> 4.2'
@@ -75,6 +78,10 @@ group :development, :test do
   gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'spring-commands-rspec'
+
+  # 外部APIモッキング
+  gem 'webmock', require: false
+  gem 'vcr', require: false
 end
 
 group :development do
