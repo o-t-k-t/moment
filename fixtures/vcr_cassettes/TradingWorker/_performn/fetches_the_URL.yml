@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://coincheck.com/api/rate/btc_jpy
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - RubyCoincheckClient v0.3.0
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Date:
+      - Thu, 20 Dec 2018 08:52:03 GMT
+      Server:
+      - nginx
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Content-Type-Options:
+      - nosniff
+      Etag:
+      - W/"3d41d064d480c4430193861ed0b2b6f9"
+      Cache-Control:
+      - max-age=0, private, must-revalidate
+      X-Request-Id:
+      - e30b5953-acfb-40ca-bc36-9e93343c7c81
+      X-Runtime:
+      - '0.006063'
+      X-Cache:
+      - Miss from cloudfront
+      Via:
+      - 1.1 65e1aa7b9d77422183e6aae2f76ec31c.cloudfront.net (CloudFront)
+      X-Amz-Cf-Id:
+      - n52CJ5C5_FS8Ak-gGFi7JxHg4gVhLD1zY1d5WmBYFpAAOyExZjcFJw==
+    body:
+      encoding: ASCII-8BIT
+      string: '{"rate":"444181.5"}'
+    http_version: 
+  recorded_at: Thu, 20 Dec 2018 08:52:03 GMT
+recorded_with: VCR 4.0.0
