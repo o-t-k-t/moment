@@ -10,7 +10,11 @@ class BotDecorator < Draper::Decorator
   end
 
   def created_at
-    "#{I18n.l(object.created_at, format: :long)}"
+    I18n.l(object.created_at, format: :long)
+  end
+
+  def start_at
+    I18n.l(object.start_at, format: :long)
   end
 
   def strategy

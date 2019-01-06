@@ -6,6 +6,7 @@ ja:
       currency_pair: 通貨ペア
     attributes:
       bot:
+        id: Bot ID
         type: 戦略
         status: 状態
         start_at: 動作開始日時

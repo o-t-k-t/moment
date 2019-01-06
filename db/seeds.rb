@@ -5,7 +5,7 @@ cp = CurrencyPair.create!(
 )
 
 u = User.create!(email: 'm@gmail.com', password: 'llllll')
-DollcostAverageBot.create!(
+b = DollcostAverageBot.create!(
   currency_pair_id: cp.id,
   start_at: Time.zone.now,
   level_base: 4_000_000,
@@ -17,7 +17,16 @@ DollcostAverageBot.create!(
   user_id: u.id
 )
 
-TrailingStopBot.create(
+50.times do
+  OrderLog.create!(
+    bot_id: b.id,
+    currency_pair_id: cp.id,
+    job_id: SecureRandom.hex(16).to_s,
+    message: Faker::Lorem.sentence
+  )
+end
+
+b = TrailingStopBot.create(
   currency_pair_id: cp.id,
   start_at: Time.zone.now,
   level_base: 4_000_000,
@@ -26,10 +35,19 @@ TrailingStopBot.create(
   user_id: u.id
 )
 
-30.times do
-  u = User.create!(email: Faker::Internet.email, password: 'llllll')
+50.times do
+  OrderLog.create!(
+    bot_id: b.id,
+    currency_pair_id: cp.id,
+    job_id: SecureRandom.hex(16).to_s,
+    message: Faker::Lorem.sentence
+  )
+end
+
+30.times do |i|
+  u = User.create!(email: "user#{i}@gmail.com", password: 'llllll')
   if [true, false].sample
-    DollcostAverageBot.create!(
+    b = DollcostAverageBot.create!(
       currency_pair_id: cp.id,
       start_at: Time.zone.now,
       level_base: 4_000_000,
@@ -42,9 +60,18 @@ TrailingStopBot.create(
     )
   end
 
+  rand(1..10).times do
+    OrderLog.create!(
+      bot_id: b.id,
+      currency_pair_id: cp.id,
+      job_id: SecureRandom.hex(16).to_s,
+      message: Faker::Lorem.sentence
+    )
+  end
+
   next if [true, false].sample
 
-  TrailingStopBot.create(
+  b = TrailingStopBot.create(
     currency_pair_id: cp.id,
     start_at: Time.zone.now,
     level_base: 4_000_000,
@@ -52,4 +79,13 @@ TrailingStopBot.create(
     ts_key_amount: 0.004,
     user_id: u.id
   )
+
+  rand(1..10).times do
+    OrderLog.create!(
+      bot_id: b.id,
+      currency_pair_id: cp.id,
+      job_id: SecureRandom.hex(16).to_s,
+      message: Faker::Lorem.sentence
+    )
+  end
 end

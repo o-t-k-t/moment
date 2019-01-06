@@ -4,7 +4,8 @@ class BotsController < ApplicationController
   end
 
   def show
-    @bot = current_user.bots.find(bot_params[:id])
+    @bot = current_user.bots.find(bot_params[:id]).decorate
+    @order_logs = @bot.order_logs.decorate
   end
 
   def edit

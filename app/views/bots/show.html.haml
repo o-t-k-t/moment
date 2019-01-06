@@ -1,2 +1,17 @@
-%h1 Bots#show
-%p Find me in app/views/bots/show.html.haml
+%section.hero.is-dark.is-bold
+  .hero-body
+    .container
+      %h1.title= @bot.strategy
+      %h2.subtitle= @bot.currency_pair.name
+      %p= @bot.description
+.container
+  %table.table.is-striped.is-fullwidth
+    %thead
+      %tr
+        %th= t('activerecord.attributes.order_logs.created_at')
+        %th= t('activerecord.attributes.order_logs.message')
+    %tbody
+      - @order_logs.each do |ol|
+        %tr
+          %td= ol.created_at
+          %td= ol.message

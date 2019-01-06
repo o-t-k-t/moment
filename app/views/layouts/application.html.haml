@@ -40,6 +40,4 @@
     - flash.each do |key, value|
       .notification.is-info= content_tag(:div, value, class: key.to_s)
     %p{ id: 'notice' }= notice
-    %section.section
-      .container
-        = yield
+    = yield
