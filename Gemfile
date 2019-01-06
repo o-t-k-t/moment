@@ -35,7 +35,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 # 認証・認可
-gem 'device'
+gem 'devise'
 
 gem 'bootsnap', '>= 1.1.0'
 
