@@ -80,8 +80,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
 
   # 外部APIモッキング
-  gem 'webmock', require: false
   gem 'vcr', require: false
+  gem 'webmock', require: false
 end
 
 group :development do

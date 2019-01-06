@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :order_log do
-    bot { "" }
+    bot { '' }
     currency_pair { nil }
     job_id { 1 }
-    message { "MyText" }
+    message { 'MyText' }
   end
 end
