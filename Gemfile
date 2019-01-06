@@ -35,7 +35,7 @@ gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 # 認証・認可
-gem 'device'
+gem 'devise'
 
 gem 'bootsnap', '>= 1.1.0'
 
@@ -94,6 +94,8 @@ group :development do
 
   # コード補完
   gem 'solargraph'
+
+  gem 'html2haml'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
