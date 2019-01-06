@@ -1,6 +1,6 @@
 class BotsController < ApplicationController
   def index
-    @bots = current_user.bots
+    @bots = current_user.bots.includes(:currency_pair).decorate
   end
 
   def show

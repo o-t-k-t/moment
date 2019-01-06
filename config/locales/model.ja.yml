@@ -1,0 +1,38 @@
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+      bot: Bot
+      currency_pair: 通貨ペア
+    attributes:
+      bot:
+        type: 戦略
+        status: 状態
+        start_at: 動作開始日時
+        level_base: 基準価格
+        level_slope: 秒間基準変更価格
+        dca_interval_day: 積立間隔(日)
+        dca_interval_hour:  積立間隔(時間)
+        dca_interval_minute: 積立間隔(分)
+        dca_settlment_amount: 積立額(支払い通貨単位)
+        ts_key_amount: 売却量(売り出し通貨単位)
+        updated_at: 更新日時
+        created_at: 登録日時
+      currency_pair:
+        name: 名前
+        key_currency: 基軸通貨
+        settlement_currency: 決済通貨
+      order_logs:
+        job_id: ジョブID
+        message: 内容
+        created_at: 注文時刻
+  errors:
+    messages:
+      invalid_date: "が無効な日付です"
+      invalid_time: "が無効な日付です"
+      invalid_datetime: "の日付か時刻が無効です"
+      is_at: "は%{restriction}にしてください"
+      before: "は%{restriction}より前にしてください"
+      on_or_before: "は%{restriction}以前にしてください"
+      after:  "は%{restriction}より後にしてください"
+      on_or_after: "は%{restriction}以降にしてください"

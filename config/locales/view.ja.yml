@@ -1,0 +1,43 @@
+ja:
+  show: 詳細
+  new: 新規作成
+  edit: 編集
+  create: 登録
+  update: 変更
+  destroy: 削除
+  back: 戻る
+
+  login: ログイン
+  logout: ログアウト
+  signup: ユーザ登録
+
+  views:
+    pagination:
+      first: "先頭"
+      last: "最後"
+      previous: "前"
+      next: "次"
+      truncate: "..."
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "%{entry_name}はまだ登録されていません。登録しましょう🔥"
+          one: "1件の%{entry_name}を表示中"
+          other: "全%{count}件の%{entry_name}を表示中"
+      more_pages:
+        display_entries: "%{total}件中%{first}件目から%{last}件目の%{entry_name}を表示中"
+  bots:
+    index: Bot一覧
+    show: Bot詳細
+    new: Bot作成
+    edit: Bot編集
+  dca_bots:
+    strategy: ドルコスト平均法
+    description:  "%{interval}毎に%{key}を%{amount}円ずつ購入します。価格推移が指定ペースを上回ったら、動作を終了します"
+    day: "%{day}日"
+    hout: "%{hour}時間"
+    minute: "%{minute}分"
+  trailing_stop_bots:
+    strategy: トレーリングストップ
+    description:  "毎分%{pair}の価格を監視し、。推移が指定ペースを下回ったら、%{amount}BTCを売り,動作を完了します"
