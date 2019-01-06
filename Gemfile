@@ -94,6 +94,8 @@ group :development do
 
   # コード補完
   gem 'solargraph'
+
+  gem 'html2haml'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
