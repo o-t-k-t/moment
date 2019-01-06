@@ -1,7 +1,5 @@
 class BotCreationStepsController < ApplicationController
-  def show
-  end
+  def show; end
 
-  def update
-  end
+  def update; end
 end
