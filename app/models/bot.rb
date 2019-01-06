@@ -40,6 +40,17 @@ class Bot < ApplicationRecord
   end
   # このガード節DRYじゃないが、拡張性必要なのでこのままでいい
 
+  def self.make(params)
+    case params[:bot_type]
+    when 'dollcost_average'
+      DollcostAverageBot.new(params)
+    when 'trailing_stop'
+      TrailingStopBot.new(params)
+    else
+      raise 'Parameter error'
+    end
+  end
+
   private
 
   def post_needs_to_order?(_rate)
