@@ -47,6 +47,9 @@ gem 'faker'
 
 gem 'kaminari'
 
+# コントローラ機能
+gem 'wicked'
+
 # 日付処理
 gem 'validates_timeliness'
 
