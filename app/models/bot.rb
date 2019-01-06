@@ -2,6 +2,7 @@ class Bot < ApplicationRecord
   include AASM
 
   belongs_to :currency_pair
+  belongs_to :user
   has_many :order_logs, dependent: :nullify
 
   # validates :currency_pair_id, presence: true
