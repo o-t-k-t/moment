@@ -4,19 +4,19 @@ ja:
       user: ユーザー
       bot: Bot
       currency_pair: 通貨ペア
+      order_log: 注文履歴
     attributes:
       bot:
         id: Bot ID
         type: 戦略
         status: 状態
-        start_at: 動作開始日時
         level_base: 基準価格
         level_slope: 秒間基準変更価格
-        dca_interval_day: 積立間隔(日)
-        dca_interval_hour:  積立間隔(時間)
-        dca_interval_minute: 積立間隔(分)
+        dca_interval_unit: 積立間隔単位
+        dca_interval_value: 積立間隔数
         dca_settlment_amount: 積立額(支払い通貨単位)
         ts_key_amount: 売却量(売り出し通貨単位)
+        currency_pair: 通貨ペア
         updated_at: 更新日時
         created_at: 登録日時
       currency_pair:

@@ -1,6 +1,24 @@
 class BotDecorator < Draper::Decorator
   delegate_all
 
+  def each_concrete_class_name
+    # FIXME: STIのサブクラスが読み込まれないためのWA
+    # rubocop:disable all
+    DollcostAverageBot
+    TrailingStopBot
+    # rubocop:enable all
+
+    object.class
+          .subclasses
+          .map(&:to_s)
+          .map { |cc| { value: cc, dictionay_name: cc.underscore.pluralize } }
+          .each { |cc| yield cc }
+  end
+
+  def introduction
+    I18n.t("#{bot_type_name}.introduction")
+  end
+
   def status
     case object.status
     when 'running' then '稼働中'
@@ -13,26 +31,27 @@ class BotDecorator < Draper::Decorator
     I18n.l(object.created_at, format: :long)
   end
 
-  def start_at
-    I18n.l(object.start_at, format: :long)
+  def strategy
+    I18n.t("#{bot_type_name}.strategy")
   end
 
-  def strategy
-    case object
-    when DollcostAverageBot
-      I18n.t('dca_bots.strategy')
-    when TrailingStopBot
-      I18n.t('trailing_stop_bots.strategy')
-    else
-      raise "Unsupported class #{object.class}"
-    end
+  def render_parameter_form
+    h.render "bot_decorator/#{bot_type_name}/parameter_form", bot: self
+  end
+
+  def render_detail
+    h.render "bot_decorator/#{bot_type_name}/detail", bot: self
+  end
+
+  def render_confirmation
+    h.render "bot_decorator/#{bot_type_name}/confirmation", bot: self
   end
 
   def description
     case object
     when DollcostAverageBot
       I18n.t(
-        'dca_bots.description',
+        'dollcost_average_bots.description',
         interval: interval,
         key: currency_pair.key_currency,
         amount: dca_settlment_amount
@@ -49,8 +68,24 @@ class BotDecorator < Draper::Decorator
   end
 
   def interval
-    return I18n.t('dca_bots.day', day: object.dca_interval_day) if object.dca_interval_day != 0
-    return I18n.t('dca_bots.hour', hour: object.dca_interval_hour) if object.dca_interval_hour != 0
-    return I18n.t('dca_bots.minute', minute: object.dca_interval_minute) if object.dca_interval_minute
+    format(
+      '%<value>d %<unit>s',
+      value: object.dca_interval_value,
+      unit: I18n.t("dollcost_average_bots.#{object.dca_interval_unit}")
+    )
+  end
+
+  def interval_units_for_select
+    h.options_for_select(
+      Bot.dca_interval_units.keys.map { |iu| [I18n.t("dollcost_average_bots.#{iu}"), iu] }
+    )
+  end
+
+  def thresh_levels
+    Array.new(10).map { |i| Time.zone.now + object.interval * i }
+  end
+
+  def bot_type_name
+    object.class.to_s.underscore.pluralize
   end
 end

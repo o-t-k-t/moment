@@ -22,7 +22,6 @@ RSpec.describe TrailingStopBot, type: :model do
           travel_to(base) do
             tsb = TrailingStopBot.create(
               currency_pair_id: cp.id,
-              start_at: base,
               level_base: 4_000_000,
               level_slope: rate_move,
               ts_key_amount: 0.004

@@ -6,6 +6,7 @@ ja:
   update: 変更
   destroy: 削除
   back: 戻る
+  next: 次
 
   login: ログイン
   logout: ログアウト
@@ -32,12 +33,22 @@ ja:
     show: Bot詳細
     new: Bot作成
     edit: Bot編集
-  dca_bots:
+    selection_fail: ボット選択内容に誤りがあります
+    confirmation_fail: パラメータ設定内容に誤りがあります
+    creation_success: Botを作成しました。
+  bot_creation_steps:
+    type_selection: Bot選択
+    parameter_input: パラメータ設定
+    confirmation: 内容確認
+    creation: Bot作成
+  dollcost_average_bots:
     strategy: ドルコスト平均法
+    introduction: 5000円など決済通貨での固定の少額で定期的な積立を行います。短期的に下落、中長期的に上昇しているケースを想定しており、指定ペースでの下落が終わったあと、動作を終了します。
     description:  "%{interval}毎に%{key}を%{amount}円ずつ購入します。価格推移が指定ペースを上回ったら、動作を終了します"
-    day: "%{day}日"
-    hout: "%{hour}時間"
-    minute: "%{minute}分"
+    day: 日
+    hour: 時間
+    minute: 分
   trailing_stop_bots:
     strategy: トレーリングストップ
+    introduction: 通貨ペアが指定ペースでの価格上昇を維持できなくなった際に、まとめて売りを行います。できる限り高い価格での売りによるイグジットを目的とした手法です。
     description:  "毎分%{pair}の価格を監視し、。推移が指定ペースを下回ったら、%{amount}BTCを売り,動作を完了します"

@@ -23,12 +23,10 @@ RSpec.describe DollcostAverageBot, type: :model do
           travel_to(base) do
             tsb = DollcostAverageBot.create!(
               currency_pair_id: cp.id,
-              start_at: base,
               level_base: 4_000_000,
               level_slope: rate_move,
-              dca_interval_day: 1,
-              dca_interval_hour: 0,
-              dca_interval_minute: 0,
+              dca_interval_unit: :day,
+              dca_interval_value: 1,
               dca_settlment_amount: 500
             )
           end

@@ -1,16 +1,17 @@
-.container
-  %h1.title Bot一覧
-  .columns
-    - @bots.each do |bot|
-      .column
-        .card
-          .card-content
-            .content
-              %p.title.is-4 #{bot.currency_pair.name} #{bot.strategy}
-              %p.subtitle.is-6.button.is-info= bot.status
-              %p= bot.description
+%section.section
+  .container
+    %h1.title Bot一覧
+    .columns
+      - @bots.each do |bot|
+        .column
+          .card
+            .card-content
+              .content
+                %p.title.is-4 #{bot.currency_pair.name} #{bot.strategy}
+                %p.subtitle.is-6.button.is-info= bot.status
+                %p= bot.description
 
-            = bot.created_at
-          %fotter.card-footer
-            = link_to t('show'), bot_path(bot.id), class: 'card-footer-item'
-            = link_to t('edit'), edit_bot_path(bot.id), class: 'card-footer-item'
+              = bot.created_at
+            %fotter.card-footer
+              = link_to t('show'), bot_path(bot.id), class: 'card-footer-item'
+              = link_to t('edit'), edit_bot_path(bot.id), class: 'card-footer-item'
