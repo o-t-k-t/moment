@@ -15,7 +15,7 @@ class TradingWorker
     puts "hello #{jid} #{rate}"
 
     Bot.in_batches
-       .select { |b| b.needs_process?(rate) }
+       .select { |b| b.needs_to_order?(rate) }
        .each { |b| OrderWorker.perform_later(b.id) }
   end
 
