@@ -14,6 +14,7 @@ class BotCreationStepsController < ApplicationController
 
   def update # rubocop:disable Metrics/CyclomaticComplexity Wicked Gemの仕様上不可避
     @bot = Bot.make(bot_params)&.decorate
+    @bot.user = current_user
 
     case step
     when :parameter_input
@@ -45,6 +46,8 @@ class BotCreationStepsController < ApplicationController
       :level_base,
       :level_slope,
       :dca_settlment_amount,
+      :dca_interval_unit,
+      :dca_interval_value,
       :ts_key_amount
     )
   end
