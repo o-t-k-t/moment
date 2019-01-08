@@ -1,7 +1,6 @@
 ja:
   activerecord:
     models:
-      user: ユーザー
       bot: Bot
       currency_pair: 通貨ペア
       order_log: 注文履歴

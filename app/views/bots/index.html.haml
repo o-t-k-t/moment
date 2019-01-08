@@ -1,6 +1,8 @@
 %section.section
   .container
     %h1.title Bot一覧
+    - if @bots.empty?
+      = t('bots.empty')
     .columns
       - @bots.each do |bot|
         .column
@@ -10,7 +12,6 @@
                 %p.title.is-4 #{bot.currency_pair.name} #{bot.strategy}
                 %p.subtitle.is-6.button.is-info= bot.status
                 %p= bot.description
-
               = bot.created_at
             %fotter.card-footer
               = link_to t('show'), bot_path(bot.id), class: 'card-footer-item'

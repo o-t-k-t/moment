@@ -33,6 +33,7 @@ ja:
     show: Bot詳細
     new: Bot作成
     edit: Bot編集
+    empty: Botまだ登録されていません
     selection_fail: ボット選択内容に誤りがあります
     confirmation_fail: パラメータ設定内容に誤りがあります
     creation_success: Botを作成しました。
