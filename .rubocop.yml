@@ -42,6 +42,7 @@ Bundler/OrderedGems:
 
 Metrics/BlockLength:
   Exclude:
+    - "db/seeds.rb"
     - "spec/**/*"
 
 Layout/ExtraSpacing:
