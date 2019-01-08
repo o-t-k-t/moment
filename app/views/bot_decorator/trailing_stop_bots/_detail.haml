@@ -1,0 +1,25 @@
+%section.hero.is-dark.is-bold
+  .hero-body
+    .container
+      %h1.title= bot.strategy
+      %h2.subtitle= bot.currency_pair.name
+      %p.subtitle.is-6.button.is-info= bot.status
+      %p= bot.description
+%section.section
+  %h5.title= t('show')
+  .container
+    %table.table.is-striped.is-fullwidth
+      %thead
+        %tr
+          %th= '項目'
+          %th= '内容'
+      %tbody
+        %tr
+          %td 基準価格
+          %td= bot.level_base
+        %tr
+          %td 秒間基準変化価格
+          %td= bot.level_slope
+        %tr
+          %td 売却額
+          %td= bot.ts_key_amount

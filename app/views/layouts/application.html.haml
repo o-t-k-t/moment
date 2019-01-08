@@ -1,0 +1,29 @@
+!!!
+%html
+  %head
+    %meta{ :content => 'text/html; charset=UTF-8', 'http-equiv' => 'Content-Type' }/
+    %title Moment
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %nav.navbar{ role: 'navigation', 'aria-label' => 'main navigation' }
+      .container
+        .navbar-brand
+          = link_to 'Moment', root_path, class: 'navbar-item is-size-4 has-text-weight-bold	'
+          - if user_signed_in?
+            .navbar-item= link_to 'Bot一覧', bots_path, class: 'navbar-item'
+            .navbar-item= link_to 'Bot作成', bots_path, method: :post, class: 'navbar-item'
+            .navbar-item= link_to current_user.email, root_path, class: 'navbar-item'
+            .navbar-item
+              .buttons= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'button is-light'
+          - else
+            .navbar-item
+              .buttons= link_to 'ユーザー登録', new_user_registration_path, class: 'navbar-item button is-dark'
+            .navbar-item
+              .buttons= link_to 'ログイン', new_user_session_path, class: 'navbar-item button is-light'
+    %section
+      - flash.each do |key, value|
+        .notification.is-info= content_tag(:div, value, class: key.to_s)
+    = yield

@@ -1,0 +1,22 @@
+= render 'breadcrumb'
+= form_with model: @bot, url: next_wizard_path, method: :put, local: true do |f|
+  %section.section
+    .container
+      %h5.title.is-5= f.label :currency_pair
+      .control
+        .select
+          = f.collection_select :currency_pair_id, @currency_pairs, :id, :name
+  %section.section
+    .container
+      %h5.title.is-5= f.label :type
+      .columns
+        - @bot.each_concrete_class_name do |cc|
+          .column
+            %article.message.is-info
+              .message-header
+                = f.radio_button :type, cc[:value]
+                %p= I18n.t("#{cc[:dictionay_name]}.strategy")
+              .message-body
+                = I18n.t("#{cc[:dictionay_name]}.introduction")
+      .control.has-text-centered
+        = f.submit t('next'), class: 'button'

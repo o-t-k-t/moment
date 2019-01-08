@@ -1,0 +1,43 @@
+%section.section
+  = form_with model: bot, url: next_wizard_path, method: :put, local: true do |f|
+    .field.is-horizontal
+      .field-label.is-normal= f.label :level_base, class: 'label'
+      .field-body
+        .field
+          %p.control= f.text_field :level_base, class: 'input'
+          %p.help= '単位はBTCJPY価格です'
+    .field.is-horizontal
+      .field-label.is-normal= f.label :level_slope, class: 'label'
+      .field-body
+        .field
+          %p.control= f.text_field :level_slope, class: 'input'
+          %p.help= '積立を停止する閾値が基準価格 + (監視時刻(秒) - 開始時刻(秒)×基準変更価格)で算出されます。この戦略ではマイナスの値に設定する必要があります。'
+    .field.is-horizontal
+      .field-label.is-normal= f.label :dca_settlment_amount, class: 'label'
+      .field-body
+        .field
+          %p.control= f.text_field :dca_settlment_amount, class: 'input'
+          %p.help= '1回の積立額をJPY単位で指定します'
+    .field.is-horizontal
+      .field-label.is-normal= f.label :dca_interval_unit, class: 'label'
+      .field-body
+        .field
+          .control
+            .select= f.select :dca_interval_unit, bot.interval_units_for_select
+    .field.is-horizontal
+      .field-label.is-normal= f.label :dca_interval_value, class: 'label'
+      .field-body
+        .field
+          .control
+            %p.control= f.text_field :dca_interval_value, class: 'input'
+            %p.help= '積立間隔を間隔単位×間隔数で指定します。'
+    = f.hidden_field :type
+    = f.hidden_field :currency_pair_id
+    = f.hidden_field :user_id, value: current_user.id
+    .field.is-horizontal
+      .field-label= ''
+      .field-body
+        .field
+          .control
+            = f.submit t('next'), class: 'button'
+

@@ -1,0 +1,14 @@
+skip_frontmatter: false
+exclude:
+  - 'vendor/**/*'
+  - 'spec/**/*'
+  - 'app/views/kaminari/*'
+linters:
+  AltText:
+    enabled: true
+
+  InlineStyles:
+    enabled: false
+
+  LineLength:
+    enabled: false

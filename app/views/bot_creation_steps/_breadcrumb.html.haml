@@ -1,0 +1,16 @@
+%section.section
+  .container
+    %nav.breadcrumb.has-succeeds-separator.is-centered{ 'aria-label' => 'breadcrumbs' }
+      %ul
+        %li
+          %p{ class: step == :type_selection ? 'has-text-info' : '' }
+            = t('bot_creation_steps.type_selection')
+        %li
+          %p{ class: step == :parameter_input ? 'has-text-info' : '' }
+            = t('bot_creation_steps.parameter_input')
+        %li
+          %p{ class: step == :confirmation ? 'has-text-info' : '' }
+            = t('bot_creation_steps.confirmation')
+        %li
+          %p{ class: step == :creation ? 'has-text-info' : '' }
+            = t('bot_creation_steps.creation')

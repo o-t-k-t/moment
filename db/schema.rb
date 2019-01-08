@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_06_031217) do
+ActiveRecord::Schema.define(version: 2019_01_07_110219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,18 +19,18 @@ ActiveRecord::Schema.define(version: 2019_01_06_031217) do
     t.string "type", null: false
     t.bigint "currency_pair_id", null: false
     t.string "status", null: false
-    t.datetime "start_at", null: false
     t.float "level_base"
     t.float "level_slope"
-    t.integer "dca_interval_day"
-    t.integer "dca_interval_hour"
-    t.integer "dca_interval_minute"
     t.float "dca_settlment_amount"
     t.float "ts_key_amount"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.integer "dca_interval_unit"
+    t.integer "dca_interval_value"
     t.index ["currency_pair_id"], name: "index_bots_on_currency_pair_id"
     t.index ["type"], name: "index_bots_on_type"
+    t.index ["user_id"], name: "index_bots_on_user_id"
   end
 
   create_table "currency_pairs", force: :cascade do |t|
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_031217) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bots", "users"
   add_foreign_key "order_logs", "bots"
   add_foreign_key "order_logs", "currency_pairs"
 end

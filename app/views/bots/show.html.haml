@@ -1,2 +1,15 @@
-%h1 Bots#show
-%p Find me in app/views/bots/show.html.haml
+= @bot.render_detail
+
+%section.section
+  %h5.title= t('activerecord.models.order_log')
+  .container
+    %table.table.is-striped.is-fullwidth
+      %thead
+        %tr
+          %th= t('activerecord.attributes.order_logs.created_at')
+          %th= t('activerecord.attributes.order_logs.message')
+      %tbody
+        - @order_logs.each do |ol|
+          %tr
+            %td= ol.created_at
+            %td= ol.message

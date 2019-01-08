@@ -1,15 +1,8 @@
 class DollcostAverageBot < Bot
-  # 上位単位の公倍数から任意に抽出。
-  # 定時処理の起動間隔として扱う。(処理のたびにこの時間後にスケージュリングするのとは異なる)
-  DAY_INTERVALS = [0, 1, 2, 4, 7].freeze
-  HOUR_INTERVALS = [0, 1, 3, 6, 12].freeze
-  MINUTE_INTERVALS = [0, 1, 3, 5, 10, 15, 30].freeze
-
   validates :level_base, presence: true
   validates :level_slope, presence: true, numericality: { less_than: 0.0 }
-  validates :dca_interval_day, presence: true, inclusion: { in: DAY_INTERVALS }
-  validates :dca_interval_hour, presence: true, inclusion: { in: HOUR_INTERVALS }
-  validates :dca_interval_minute, presence: true, inclusion: { in: MINUTE_INTERVALS }
+  validates :dca_interval_unit, presence: true, inclusion: { in: Bot.dca_interval_units.keys }
+  validates :dca_interval_value, presence: true, numericality: { greater_than: 0 }
   validates :dca_settlment_amount, presence: true
 
   def post_needs_to_order?(rate)
@@ -36,5 +29,18 @@ class DollcostAverageBot < Bot
     # Dummy
     puts coincheck_client.read_balance.body
     # TODO: 成行き買い
+  end
+
+  def interval
+    case dca_interval_unit
+    when 'day'
+      dca_interval_value.day
+    when 'hour'
+      dca_interval_value.hour
+    when 'minute'
+      dca_interval_value.minute
+    else
+      raise 'Funding interval calcuration error'
+    end
   end
 end
