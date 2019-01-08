@@ -1,17 +1,15 @@
 class BotsController < ApplicationController
-  before_action :validate_status_event
-
   def index
     @bots = current_user.bots.includes(:currency_pair).decorate
   end
 
   def show
-    @bot = current_user.bots.find(bot_params[:id]).decorate
+    @bot = current_user.bots.find(params[:id]).decorate
     @order_logs = @bot.order_logs.decorate
   end
 
   def edit
-    @bot = current_user.bots.find(bot_params[:id]).decorate
+    @bot = current_user.bots.find(params[:id]).decorate
   end
 
   def create
@@ -19,30 +17,24 @@ class BotsController < ApplicationController
   end
 
   def update
-    @bot = current_user.bots.find(bot_params[:id])
-    @bot.send(params[:status_event])
+    @bot = current_user.bots.find(params[:id])
+    @bot.send(status_event_param)
     @bot.save!
     redirect_to bots_path, notice: 'Botを更新しました'
   end
 
   def destroy
-    @bot = current_user.bots.find(bot_params[:id])
+    @bot = current_user.bots.find(params[:id])
     @bot.destroy
     redirect_to bots_path, notice: 'Botを削除しました'
   end
 
   private
 
-  def bot_params
-    #  TODO: ストロングパラメータ実装
-    params.permit!
-    # params.require(:bot).permit(:content)
-  end
+  def status_event_param
+    return nil if params[:status_event].nil?
+    raise 'Illegal event received' if %w[resume pend].exclude?(params[:status_event])
 
-  def validate_status_event
-    return if params[:status_event].nil?
-    return if %w[resume complete pend].include?(params[:status_event])
-
-    raise 'Illegal event received'
+    params[:status_event].permit
   end
 end

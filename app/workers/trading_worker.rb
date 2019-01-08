@@ -12,11 +12,15 @@ class TradingWorker
     res = coincheck_client.read_rate
     rate = JSON.parse(res.body).fetch('rate')
 
-    puts "hello #{jid} #{rate}"
+    logger.info "BTCJPY #{rate}"
 
-    Bot.in_batches
-       .select { |b| b.needs_process?(rate) }
-       .each { |b| OrderWorker.perform_later(b.id) }
+    Bot.find_each
+       .tap { |bots| bots.each { |b| logger.info "Poll #{b.class}-#{b.id} #{b.status}" } }
+       .select { |b| b.needs_to_order?(rate) }
+       .each do |b|
+         logger.info "Dispatch #{b.class}-#{b.id}"
+         OrderWorker.perform_async(b.id)
+       end
   end
 
   private

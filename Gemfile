@@ -18,6 +18,7 @@ gem 'rack', '>= 2.0.6'
 
 # バッチ処理
 gem 'sidekiq'
+gem 'sidekiq-scheduler'
 
 # 外部API
 gem 'ruby_coincheck_client'

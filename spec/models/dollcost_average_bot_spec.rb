@@ -14,6 +14,7 @@ RSpec.describe DollcostAverageBot, type: :model do
       end
 
       with_them do
+        let!(:user) { create(:user) }
         let!(:cp) { create(:currency_pair) }
 
         it 'needs to order untill breakout' do
@@ -27,7 +28,8 @@ RSpec.describe DollcostAverageBot, type: :model do
               level_slope: rate_move,
               dca_interval_unit: :day,
               dca_interval_value: 1,
-              dca_settlment_amount: 500
+              dca_settlment_amount: 500,
+              user: user
             )
           end
 

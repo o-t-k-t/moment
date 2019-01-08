@@ -7,13 +7,12 @@ class DollcostAverageBot < Bot
 
   def post_needs_to_order?(rate)
     # 完了判定
-    if rate > thresh
-      complete
+    if Float(rate) > thresh
+      complete!
       return false
     end
 
     # 定期購入判定
-
     last_at = order_logs.order(created_at: 'desc').first&.created_at || created_at
     last_at = last_at.beginning_of_day
 
@@ -27,7 +26,7 @@ class DollcostAverageBot < Bot
 
   def post_order
     # Dummy
-    puts coincheck_client.read_balance.body
+    logger.info 'Do Order!'
     # TODO: 成行き買い
   end
 

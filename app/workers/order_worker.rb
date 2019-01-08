@@ -3,9 +3,12 @@ class OrderWorker
 
   def perform(bid)
     # unless TransactionLog.exists?(job_id: jid)
-    Bot.find(bid).order(coincheck_client)
-    # end
-    # BotMailer.transaction_mail(name, email).deliver
-    # TransactionLog.create(job_id: jid, bot_id: bid)
+    b = Bot.find(bid)
+
+    logger.info "Before oder #{b.class}-#{b.id} status: #{b.status}"
+    b.order
+    logger.info "After oder #{b.class}-#{b.id} float_ratestatus: #{b.status}"
+
+    BotMailer.complete_mail(b).deliver
   end
 end

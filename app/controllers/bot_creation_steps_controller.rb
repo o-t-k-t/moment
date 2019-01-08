@@ -12,27 +12,26 @@ class BotCreationStepsController < ApplicationController
     render_wizard @bot
   end
 
-  def update
+  def update # rubocop:disable Metrics/CyclomaticComplexity Wicked Gemの仕様上不可避
     @bot = Bot.make(bot_params)&.decorate
 
     case step
     when :parameter_input
       unless @bot
         flash[:notice] = I18n.t('bots.selection_fail')
-        redirect_to previous_wizard_path
-        return
+        redirect_to wizard_path(:type_selection) and return
       end
     when :confirmation
       unless @bot&.valid?
         flash[:notice] = I18n.t('bots.confirmation_fail')
-        redirect_to wizard_path(:type_selection)
-        return
+        redirect_to wizard_path(:type_selection) and return
       end
     when :creation
       @bot.save!
       flash[:notice] = I18n.t('bots.creation_success')
-      redirect_to bots_path
-      return
+      redirect_to bots_path and return
+    else
+      raise 'Undefined wizard page'
     end
     render_wizard
   end
@@ -40,10 +39,14 @@ class BotCreationStepsController < ApplicationController
   private
 
   def bot_params
-    #  TODO: ストロングパラメータ実装
-    params.permit!
-    params[:bot].permit!
-    # params.require(:bot).permit(:content)
+    params.require(:bot).permit(
+      :type,
+      :currency_pair_id,
+      :level_base,
+      :level_slope,
+      :dca_settlment_amount,
+      :ts_key_amount
+    )
   end
 
   def finish_wizard_path
