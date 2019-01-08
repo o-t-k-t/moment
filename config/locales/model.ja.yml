@@ -26,6 +26,9 @@ ja:
         job_id: ジョブID
         message: 内容
         created_at: 注文時刻
+      bot:
+        api_key: APIキー
+        secret_key: シークレットキー
     events:
       bot: Botの動作を変更できます
       bot/pend: 一時停止
