@@ -9,9 +9,6 @@ class OrderWorker
     b.order
     logger.info "After oder #{b.class}-#{b.id} float_ratestatus: #{b.status}"
 
-    # logger.info b.order
-    # end
-    # BotMailer.transaction_mail(name, email).deliver
-    # TransactionLog.create(job_id: jid, bot_id: bid)
+    BotMailer.complete_mail(b).deliver
   end
 end
