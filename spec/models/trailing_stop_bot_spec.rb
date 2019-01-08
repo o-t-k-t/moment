@@ -13,6 +13,7 @@ RSpec.describe TrailingStopBot, type: :model do
       end
 
       with_them do
+        let!(:user) { create(:user) }
         let!(:cp) { create(:currency_pair) }
 
         it 'needs to order for breakdown' do
@@ -24,7 +25,8 @@ RSpec.describe TrailingStopBot, type: :model do
               currency_pair_id: cp.id,
               level_base: 4_000_000,
               level_slope: rate_move,
-              ts_key_amount: 0.004
+              ts_key_amount: 0.004,
+              user: user
             )
           end
 
