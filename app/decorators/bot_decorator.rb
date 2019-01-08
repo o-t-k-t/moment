@@ -81,6 +81,19 @@ class BotDecorator < Draper::Decorator
     )
   end
 
+  # ユーザから与えられるBotイベントの選択一覧表示
+  def status_options_for_select
+    h.options_for_select(
+      object.aasm
+          .events(permitted: true)
+          .map(&:name)
+          .tap { |n| puts n }
+          .reject { |n| n == :complete }
+          .tap { |n| puts n }
+          .map { |n| [I18n.t("activerecord.events.bot/#{n}"), n] }
+    )
+  end
+
   def thresh_levels
     Array.new(10).map { |i| Time.zone.now + object.interval * i }
   end

@@ -1,4 +1,6 @@
 class BotsController < ApplicationController
+  before_action :validate_status_event
+
   def index
     @bots = current_user.bots.includes(:currency_pair).decorate
   end
@@ -9,7 +11,7 @@ class BotsController < ApplicationController
   end
 
   def edit
-    @bot = current_user.bots.find(bot_params[:id])
+    @bot = current_user.bots.find(bot_params[:id]).decorate
   end
 
   def create
@@ -18,11 +20,9 @@ class BotsController < ApplicationController
 
   def update
     @bot = current_user.bots.find(bot_params[:id])
-    if @bot.update(bot_params)
-      redirect_to tweets_path, notice: 'Botを更新しました'
-    else
-      render 'edit'
-    end
+    @bot.send(params[:status_event])
+    @bot.save!
+    redirect_to bots_path, notice: 'Botを更新しました'
   end
 
   def destroy
@@ -37,5 +37,12 @@ class BotsController < ApplicationController
     #  TODO: ストロングパラメータ実装
     params.permit!
     # params.require(:bot).permit(:content)
+  end
+
+  def validate_status_event
+    return if params[:status_event].nil?
+    return if %w[resume complete pend].include?(params[:status_event])
+
+    raise 'Illegal event received'
   end
 end
