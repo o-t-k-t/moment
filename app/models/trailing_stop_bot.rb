@@ -5,11 +5,10 @@ class TrailingStopBot < Bot
 
   # 監視開始から指定レートで切り上げ続ける期待価格に実価格が足りなくなった時、売る
   def post_needs_to_order?(rate)
-    rate <= thresh
+    Float(rate) <= thresh
   end
 
   def post_order
-    puts coincheck_client.read_balance.body
-    complete
+    complete!
   end
 end

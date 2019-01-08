@@ -34,10 +34,10 @@ class Bot < ApplicationRecord
     post_needs_to_order?(rate)
   end
 
-  def order(client)
+  def order
     return unless status == 'running'
 
-    post_order(client)
+    post_order
   end
   # このガード節DRYじゃないが、拡張性必要なのでこのままでいい
 
