@@ -40,10 +40,14 @@ class BotCreationStepsController < ApplicationController
   private
 
   def bot_params
-    #  TODO: ストロングパラメータ実装
-    params.permit!
-    params[:bot].permit!
-    # params.require(:bot).permit(:content)
+    params.require(:bot).permit(
+      :type,
+      :currency_pair_id,
+      :level_base,
+      :level_slope,
+      :dca_settlment_amount,
+      :ts_key_amount
+    )
   end
 
   def finish_wizard_path
