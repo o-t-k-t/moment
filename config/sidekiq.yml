@@ -1,0 +1,5 @@
+---
+:schedule:
+  trading:
+    cron: '0 * * * * *'   # 1分毎の監視実行
+    class: TradingWorker
