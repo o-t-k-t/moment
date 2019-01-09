@@ -4,20 +4,20 @@
       .field-label.is-normal= f.label :level_base, class: 'label'
       .field-body
         .field
-          %p.control= f.text_field :level_base, class: 'input'
+          %p.control= f.text_field :level_base, placeholder: '45687', class: 'input'
           %p.help= '単位はBTCJPY価格です'
     .field.is-horizontal
       .field-label.is-normal= f.label :level_slope, class: 'label'
       .field-body
         .field
-          %p.control= f.text_field :level_slope, class: 'input'
+          %p.control= f.text_field :level_slope, placeholder: '10.45', class: 'input'
           %p.help= '売りを行う閾値が基準価格 + (監視時刻(秒) - 開始時刻(秒)×基準変更価格)で算出されます。この戦略ではプラスの値に設定する必要があります。'
     .field.is-horizontal
       .field-label.is-normal= f.label :ts_key_amount, class: 'label'
       .field-body
         .field
           .control
-            %p.control= f.text_field :ts_key_amount, class: 'input'
+            %p.control= f.text_field :ts_key_amount, placeholder: '0.04', class: 'input'
             %p.help= 'BTCJPY価格が閾値を下回った際に売るBTCの量を指定してください'
     = f.hidden_field :type
     = f.hidden_field :currency_pair_id
