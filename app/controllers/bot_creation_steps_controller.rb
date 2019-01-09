@@ -8,11 +8,14 @@ class BotCreationStepsController < ApplicationController
     when :type_selection
       @bot = Bot.new.decorate
       @currency_pairs = CurrencyPair.all
+    else
+      redirect_to bots_path and return
     end
+
     render_wizard @bot
   end
 
-  def update # rubocop:disable Metrics/CyclomaticComplexity Wicked Gemの仕様上不可避
+  def update # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
     @bot = Bot.make(bot_params)&.decorate
     @bot.user = current_user
 
@@ -23,7 +26,7 @@ class BotCreationStepsController < ApplicationController
         redirect_to wizard_path(:type_selection) and return
       end
     when :confirmation
-      unless @bot&.valid?
+      unless @bot.valid?
         flash[:notice] = I18n.t('bots.confirmation_fail')
         redirect_to wizard_path(:type_selection) and return
       end
