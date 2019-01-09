@@ -1,0 +1,71 @@
+%body
+  %section.hero.is-info.is-medium.is-bold
+    .hero-head
+    .hero-body
+      .container.has-text-centered
+        %h1.title
+          働く投資家に生産性を
+        %h2.subtitle
+          24時間絶えず行われる仮想通貨市場で、Botがあなたに代わってがシンプルな戦略で取引を行います。
+  %section.section
+    .container
+      .columns.features
+        .column.is-4
+          .card.is-shady
+            .card-image.has-text-centered
+              %i.fa.fa-paw
+            .card-content
+              .content
+                %h4 24時間のBotによるマーケット監視
+                %p Botがあなたに代わり常に仮想通貨市場の監視を行います。
+        .column.is-4
+          .card.is-shady
+            .card-image.has-text-centered
+              %i.fa.fa-empire
+            .card-content
+              .content
+                %h4 実績あるトレーディング搭載を搭載
+                %p
+                  トレーリングストップなど機関投資でも使われる基本の投資手法をBotとして実装しました。恣意性のない判断により取引を行います。
+        .column.is-4
+          .card.is-shady
+            .card-image.has-text-centered
+              %i.fa.fa-apple
+            .card-content
+              .content
+                %h4 高速なトレード
+                %p Botは毎分監視を行うため、仮想通貨市場の激しい値動きを見逃しません。
+  %section.section
+    .container
+      .columns.intro
+        .column.is-6
+          %h2.title なぜ、トレードBotなのか
+        .column.is-6
+          %p{ style: 'line-height: 1.6' } 作者の経験では、個人トレードで利益をあげることが多いのは、モーメンタム投資などの実績のある伝統的な手法でした。それらは非常にシンプルで、自身での理解やトレードの振り返りが容易など、個人投資家に適していると思います。
+          %p{ style: 'line-height: 1.6' }  しかし、仮想通貨の市場では取引の休止がないことから、同様の手法をとるにはトレーダーが常に張り付いて監視する必要がありました。このため仮想通貨の保有自体は最低限のリテラシさえあればできるのに、職業を持つ多くの個人投資家は明確な戦略をとることが難しくなり、所謂「ガチホ」と言われるまとめて買ってそのまま見ているという方法がとられていました。
+          %p{ style: 'line-height: 1.6' } これは2018年2月に相場環境の変化が起こってから、多くのガチホ投資家に損切りの遅れを招き、大きな損失を与えました。
+          %p{ style: 'line-height: 1.6' } このような生活時間の一部しか投入できない投資家たちに、ボットにより「仮想通貨トレードの生産性を向上」させ、「だれにでも伝統的な手法で仮想通貨トレードを行えるようにする」のがこのアプリケーションです。
+  %section.section
+    .container
+      %h1.title 対応機能
+      .columns.features
+        .column.is-6
+          .card.is-shady
+            .card-image.has-text-centered
+              %i.fa.fa-paw
+            .card-content
+              .content
+                %h4 対応取引所
+                %p Coincheck
+                %p= link_to 'Learn more', coincheck_reference_path
+        .column.is-6
+          .card.is-shady
+            .card-image.has-text-centered
+              %i.fa.fa-empire
+            .card-content
+              .content
+                %h4 トレーディングアルゴリズム
+                %p ドルコスト平均法
+                %p= link_to 'Learn more', dollcost_average_reference_path
+                %p トレーリングストップ
+                %p= link_to 'Learn more', trailing_stop_reference_path
