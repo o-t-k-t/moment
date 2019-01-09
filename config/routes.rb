@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  root to: 'bots#index'
+  root to: 'top#show'
 
+  resource :top
   resources :bots, only: %i[index show edit create update destroy]
   resources :bot_creation_steps, only: %i[show update]
 
