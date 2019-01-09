@@ -55,17 +55,17 @@
               %i.fa.fa-paw
             .card-content
               .content
-                %h4 対応取引所
-                %p Coincheck
-                %p= link_to 'Learn more', coincheck_reference_path
+                %h4.subtitle 対応取引所
+                %ul
+                  %li Coincheck
+                  %p= link_to 'Learn more', coincheck_reference_path
         .column.is-6
           .card.is-shady
             .card-image.has-text-centered
               %i.fa.fa-empire
             .card-content
               .content
-                %h4 トレーディングアルゴリズム
-                %p ドルコスト平均法
-                %p= link_to 'Learn more', dollcost_average_reference_path
-                %p トレーリングストップ
-                %p= link_to 'Learn more', trailing_stop_reference_path
+                %h4.subtitle トレーディングアルゴリズム
+                %ul
+                  %li ドルコスト平均法
+                  %li トレーリングストップ

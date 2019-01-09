@@ -1,6 +1,11 @@
 class BotDecorator < Draper::Decorator
   delegate_all
 
+  REFERENCE_PATHS = {
+    dollcost_average_bots: 'https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%AB%E3%83%BB%E3%82%B3%E3%82%B9%E3%83%88%E5%B9%B3%E5%9D%87%E6%B3%95',
+    trailing_stop_bots: 'http://www.theacademy-ibt.com/'
+  }.freeze
+
   def each_concrete_class_name
     # FIXME: STIのサブクラスが読み込まれないためのWA
     # rubocop:disable all
@@ -11,8 +16,9 @@ class BotDecorator < Draper::Decorator
     object.class
           .subclasses
           .map(&:to_s)
-          .map { |cc| { value: cc, dictionay_name: cc.underscore.pluralize } }
-          .each { |cc| yield cc }
+          .map { |cc| [cc, cc.underscore.pluralize] }
+          .map { |cc| [cc[0], cc[1], REFERENCE_PATHS[cc[1].to_sym]] }
+          .each { |cc| yield cc[0], cc[1], cc[2] }
   end
 
   def introduction
