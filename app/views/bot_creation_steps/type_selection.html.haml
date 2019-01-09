@@ -6,17 +6,19 @@
       .control
         .select
           = f.collection_select :currency_pair_id, @currency_pairs, :id, :name
+      %p.help= link_to '現在の市場', btc_jpy_market_path
   %section.section
     .container
       %h5.title.is-5= f.label :type
       .columns
-        - @bot.each_concrete_class_name do |cc|
+        - @bot.each_concrete_class_name do |name, dictionay_name, ref_path|
           .column
             %article.message.is-info
               .message-header
-                = f.radio_button :type, cc[:value]
-                %p= I18n.t("#{cc[:dictionay_name]}.strategy")
+                = f.radio_button :type, name
+                %p= I18n.t("#{dictionay_name}.strategy")
               .message-body
-                = I18n.t("#{cc[:dictionay_name]}.introduction")
+                = I18n.t("#{dictionay_name}.introduction")
+                = link_to 'Learn More', ref_path
       .control.has-text-centered
         = f.submit t('next'), class: 'button'
