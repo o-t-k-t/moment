@@ -1,3 +1,12 @@
+- if (step == :parameter_input || step == :confirmation) && @bot.errors.any?
+  %section.section
+    .container
+      -# haml-lint:disable IdNames
+      #error_explanation
+        %h2= I18n.t('bots.confirmation_fail')
+        %ul
+          - @bot.errors.full_messages.each do |message|
+            %li= message
 %section.section
   = form_with model: bot, url: next_wizard_path, method: :put, local: true do |f|
     .field.is-horizontal
