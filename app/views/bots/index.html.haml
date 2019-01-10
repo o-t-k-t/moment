@@ -10,7 +10,7 @@
             .card-content
               .content
                 %p.title.is-4 #{bot.currency_pair.name} #{bot.strategy}
-                %p.subtitle.is-6.button.is-info= bot.status
+                %p.subtitle.is-6.is-info= bot.status
                 %p= bot.description
               = bot.created_at
             %fotter.card-footer
