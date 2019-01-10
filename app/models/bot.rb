@@ -41,13 +41,8 @@ class Bot < ApplicationRecord
   end
   # このガード節DRYじゃないが、拡張性必要なのでこのままでいい
 
-  def self.make(bot_params)
-    case bot_params[:type]
-    when 'DollcostAverageBot'
-      DollcostAverageBot.new(bot_params)
-    when 'TrailingStopBot'
-      TrailingStopBot.new(bot_params)
-    end
+  def inherited_bot?
+    is_a?(Bot) && !instance_of?(Bot)
   end
 
   private

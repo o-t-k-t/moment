@@ -4,14 +4,13 @@ class BotCreationStepsController < ApplicationController
   steps :type_selection, :parameter_input, :confirmation, :creation
 
   def show
+    @currency_pairs = CurrencyPair.all
+
     case step
     when :type_selection
-      @bot = Bot.new.decorate
-      @currency_pairs = CurrencyPair.all
+      @bot = current_user.bots.build.decorate
     when :parameter_input
-      @bot = Bot.make(takeover_bot_params)&.decorate
-      @bot.user = current_user
-      @currency_pairs = CurrencyPair.all
+      @bot = current_user.bots.build(takeover_bot_params).decorate
       @bot.valid?
     else
       redirect_to bots_path and return
@@ -20,24 +19,19 @@ class BotCreationStepsController < ApplicationController
     render_wizard
   end
 
-  def update # rubocop:disable Metrics/CyclomaticComplexity, Metrics/MethodLength
-    @bot = Bot.make(bot_params)&.decorate
+  def update # rubocop:disable Metrics/CyclomaticComplexity
+    @bot = current_user.bots.build(bot_params).decorate
     @currency_pairs = CurrencyPair.all
 
     case step
     when :parameter_input
-      unless @bot
+      unless @bot.inherited_bot? && @bot.currency_pair
         flash[:notice] = I18n.t('bots.selection_fail')
         redirect_to wizard_path(:type_selection) and return
       end
     when :confirmation
-      @bot.user = current_user
-      if @bot.invalid?
-        jump_to(:parameter_input, takeover_params: bot_params)
-        # render :parameter_input and return
-      end
+      jump_to(:parameter_input, takeover_params: bot_params) if @bot.invalid?
     when :creation
-      @bot.user = current_user
       @bot.save!
       flash[:notice] = I18n.t('bots.creation_success')
       redirect_to bots_path and return
@@ -73,10 +67,5 @@ class BotCreationStepsController < ApplicationController
       :dca_interval_value,
       :ts_key_amount
     )
-  end
-
-
-  def finish_wizard_path
-    bots_path
   end
 end
