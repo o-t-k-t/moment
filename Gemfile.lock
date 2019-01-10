@@ -56,6 +56,8 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     ast (2.4.0)
+    attr_encrypted (3.1.0)
+      encryptor (~> 3.0.0)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -139,6 +141,7 @@ GEM
       activemodel-serializers-xml (~> 1.0)
       activesupport (~> 5.0)
       request_store (~> 1.0)
+    encryptor (3.0.0)
     equalizer (0.0.11)
     erubi (1.7.1)
     erubis (2.7.0)
@@ -489,6 +492,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
+  attr_encrypted
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
