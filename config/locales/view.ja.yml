@@ -34,7 +34,7 @@ ja:
     new: Bot作成
     edit: Bot編集
     empty: Botまだ登録されていません
-    selection_fail: ボット選択内容に誤りがあります
+    selection_fail: 通貨ペアと戦略を両方選択してください
     confirmation_fail: パラメータ設定内容に誤りがあります
     creation_success: Botを作成しました。
   bot_creation_steps:
