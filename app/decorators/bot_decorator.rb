@@ -1,4 +1,4 @@
-class BotDecorator < Draper::Decorator
+class BotDecorator < ApplicationDecorator
   delegate_all
   decorates_association :order_logs
 
@@ -30,10 +30,6 @@ class BotDecorator < Draper::Decorator
   # STI具象クラス別の部分テンプレートレンダーメソッド定義
   %i[parameter_form detail confirmation].each do |p|
     define_method("render_#{p}") { h.render "bot_decorator/#{bot_type_name}/#{p}", bot: self }
-  end
-
-  def created_at
-    I18n.l(object.created_at, format: :long)
   end
 
   def description

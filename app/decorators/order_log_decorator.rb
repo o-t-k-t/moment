@@ -1,7 +1,3 @@
-class OrderLogDecorator < Draper::Decorator
+class OrderLogDecorator < ApplicationDecorator
   delegate_all
-
-  def created_at
-    I18n.l(object.created_at, format: :long)
-  end
 end
