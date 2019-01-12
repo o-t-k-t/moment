@@ -1,15 +1,15 @@
 %section.section
   .container
-    = form_with model: @bot, url: bot_path(@bot), method: :put, local: true do |f|
-      - if @bot.errors.any?
+    = form_with model: bot, url: bot_path(bot), method: :put, local: true do |f|
+      - if bot.errors.any?
         %ul
-          - @bot.errors.full_messages.each do |message|
+          - bot.errors.full_messages.each do |message|
             %li= message
       .field
         %h5.title= t('activerecord.attributes.bot.status')
         = label_tag :status_event, t('activerecord.events.bot')
         .select
-          .control= select_tag :status_event, @bot.status_options_for_select
+          .control= select_tag :status_event, bot.status_options_for_select
         .col-sm-1
       .field
         .control

@@ -1,15 +1,16 @@
 class BotsController < ApplicationController
+  decorates_assigned :bot
+
   def index
     @bots = current_user.bots.includes(:currency_pair).decorate
   end
 
   def show
-    @bot = current_user.bots.find(params[:id]).decorate
-    @order_logs = @bot.order_logs.decorate
+    @bot = current_user.bots.find(params[:id])
   end
 
   def edit
-    @bot = current_user.bots.find(params[:id]).decorate
+    @bot = current_user.bots.find(params[:id])
   end
 
   def create

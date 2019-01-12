@@ -1,4 +1,4 @@
-= @bot.render_detail
+= bot.render_detail
 
 %section.section
   %h5.title= t('activerecord.models.order_log')
@@ -9,7 +9,7 @@
           %th= t('activerecord.attributes.order_logs.created_at')
           %th= t('activerecord.attributes.order_logs.message')
       %tbody
-        - @order_logs.each do |ol|
+        - bot.order_logs.each do |ol|
           %tr
             %td= ol.created_at
             %td= ol.message
