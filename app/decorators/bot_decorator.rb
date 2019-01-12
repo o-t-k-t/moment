@@ -22,8 +22,14 @@ class BotDecorator < Draper::Decorator
           .each { |cc| yield cc[0], cc[1], cc[2] }
   end
 
-  def introduction
-    I18n.t("#{bot_type_name}.introduction")
+  # STI具象クラス別のI18n参照メソッドの定義
+  %i[introduction strategy].each do |w|
+    define_method(w) { I18n.t("#{bot_type_name}.#{w}") }
+  end
+
+  # STI具象クラス別の部分テンプレートレンダーメソッド定義
+  %i[parameter_form detail confirmation].each do |p|
+    define_method("render_#{p}") { h.render "bot_decorator/#{bot_type_name}/#{p}", bot: self }
   end
 
   def status
@@ -36,22 +42,6 @@ class BotDecorator < Draper::Decorator
 
   def created_at
     I18n.l(object.created_at, format: :long)
-  end
-
-  def strategy
-    I18n.t("#{bot_type_name}.strategy")
-  end
-
-  def render_parameter_form
-    h.render "bot_decorator/#{bot_type_name}/parameter_form", bot: self
-  end
-
-  def render_detail
-    h.render "bot_decorator/#{bot_type_name}/detail", bot: self
-  end
-
-  def render_confirmation
-    h.render "bot_decorator/#{bot_type_name}/confirmation", bot: self
   end
 
   def description
