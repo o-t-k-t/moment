@@ -94,9 +94,7 @@ class BotDecorator < Draper::Decorator
       object.aasm
           .events(permitted: true)
           .map(&:name)
-          .tap { |n| puts n }
           .reject { |n| n == :complete }
-          .tap { |n| puts n }
           .map { |n| [I18n.t("activerecord.events.bot/#{n}"), n] }
     )
   end
