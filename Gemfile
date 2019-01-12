@@ -42,9 +42,9 @@ gem 'bootsnap', '>= 1.1.0'
 
 # モデル機能
 gem 'aasm'
-gem 'validates_email_format_of'
 gem 'attr_encrypted'
 gem 'faker'
+gem 'validates_email_format_of'
 
 gem 'kaminari'
 

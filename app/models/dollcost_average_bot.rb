@@ -25,9 +25,7 @@ class DollcostAverageBot < Bot
   end
 
   def post_order
-    # Dummy
-    logger.info 'Do Order!'
-    # TODO: 成行き買い
+    execute_order_creation
   end
 
   def interval
@@ -41,5 +39,18 @@ class DollcostAverageBot < Bot
     else
       raise 'Funding interval calcuration error'
     end
+  end
+
+  private
+
+  def execute_order_creation
+    res = coincheck_client.create_orders(
+      order_type: 'buy',
+      market_buy_amount: dca_settlment_amount,
+      pair: currency_pair.name
+    )
+
+    res = JSON.parse(res.body)
+    raise "Error response: #{res}" unless res['success']
   end
 end

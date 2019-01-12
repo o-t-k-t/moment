@@ -57,7 +57,7 @@ class Bot < ApplicationRecord
 
   # 具象クラス向けメソッド
   def coincheck_client
-    @coincheck_client || CoincheckClient.new(ENV['API_KEY'], ENV['SECRET_KEY'])
+    @coincheck_client || CoincheckClient.new(user.api_key, user.secret_key)
   end
 
   def thresh

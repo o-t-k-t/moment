@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe DollcostAverageBot, type: :model do
   using RSpec::Parameterized::TableSyntax
 
+  let!(:cp) { create(:currency_pair) }
+  let!(:user) { create(:user) }
+
   describe `#needs_to_order?` do
     context 'Sometime rate change from 4,000,000 JPY into some value' do
       where(:rate_move, :difference_time, :current_rate, :be_truthy?) do
@@ -14,9 +17,6 @@ RSpec.describe DollcostAverageBot, type: :model do
       end
 
       with_them do
-        let!(:user) { create(:user) }
-        let!(:cp) { create(:currency_pair) }
-
         it 'needs to order untill breakout' do
           base = Time.zone.local(2018, 11, 12, 13, 14, 15)
           tsb = nil
@@ -38,6 +38,28 @@ RSpec.describe DollcostAverageBot, type: :model do
           end
         end
       end
+    end
+  end
+
+  describe '#order' do
+    ODERS_URL = 'https://coincheck.com/api/exchange/orders'.freeze
+
+    it 'sends a buy request' do
+      stub = stub_request(:post, ODERS_URL).to_return(status: 200, body: '"success": false')
+
+      bot = DollcostAverageBot.create!(
+        currency_pair_id: cp.id,
+        level_base: 4_000_000,
+        level_slope: -100,
+        dca_interval_unit: :day,
+        dca_interval_value: 1,
+        dca_settlment_amount: 5000,
+        user: user
+      )
+
+      bot.order
+
+      expect(stub).to have_been_requested.once
     end
   end
 end
