@@ -32,14 +32,6 @@ class BotDecorator < Draper::Decorator
     define_method("render_#{p}") { h.render "bot_decorator/#{bot_type_name}/#{p}", bot: self }
   end
 
-  def status
-    case object.status
-    when 'running' then '稼働中'
-    when 'pending' then '停止中'
-    when 'completed' then '動作完了'
-    end
-  end
-
   def created_at
     I18n.l(object.created_at, format: :long)
   end
@@ -76,6 +68,11 @@ class BotDecorator < Draper::Decorator
     h.options_for_select(
       Bot.dca_interval_units.keys.map { |iu| [I18n.t("dollcost_average_bots.#{iu}"), iu] }
     )
+  end
+
+  # 状態関連
+  def status
+    I18n.t("activerecord.status.#{object.status}")
   end
 
   # ユーザから与えられるBotイベントの選択一覧表示
