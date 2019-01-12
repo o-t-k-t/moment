@@ -1,5 +1,6 @@
-class BotDecorator < Draper::Decorator
+class BotDecorator < ApplicationDecorator
   delegate_all
+  decorates_association :order_logs
 
   REFERENCE_PATHS = {
     dollcost_average_bots: 'https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%AB%E3%83%BB%E3%82%B3%E3%82%B9%E3%83%88%E5%B9%B3%E5%9D%87%E6%B3%95',
@@ -21,36 +22,14 @@ class BotDecorator < Draper::Decorator
           .each { |cc| yield cc[0], cc[1], cc[2] }
   end
 
-  def introduction
-    I18n.t("#{bot_type_name}.introduction")
+  # STI具象クラス別のI18n参照メソッドの定義
+  %i[introduction strategy].each do |w|
+    define_method(w) { I18n.t("#{bot_type_name}.#{w}") }
   end
 
-  def status
-    case object.status
-    when 'running' then '稼働中'
-    when 'pending' then '停止中'
-    when 'completed' then '動作完了'
-    end
-  end
-
-  def created_at
-    I18n.l(object.created_at, format: :long)
-  end
-
-  def strategy
-    I18n.t("#{bot_type_name}.strategy")
-  end
-
-  def render_parameter_form
-    h.render "bot_decorator/#{bot_type_name}/parameter_form", bot: self
-  end
-
-  def render_detail
-    h.render "bot_decorator/#{bot_type_name}/detail", bot: self
-  end
-
-  def render_confirmation
-    h.render "bot_decorator/#{bot_type_name}/confirmation", bot: self
+  # STI具象クラス別の部分テンプレートレンダーメソッド定義
+  %i[parameter_form detail confirmation].each do |p|
+    define_method("render_#{p}") { h.render "bot_decorator/#{bot_type_name}/#{p}", bot: self }
   end
 
   def description
@@ -87,15 +66,18 @@ class BotDecorator < Draper::Decorator
     )
   end
 
+  # 状態関連
+  def status
+    I18n.t("activerecord.status.#{object.status}")
+  end
+
   # ユーザから与えられるBotイベントの選択一覧表示
   def status_options_for_select
     h.options_for_select(
       object.aasm
           .events(permitted: true)
           .map(&:name)
-          .tap { |n| puts n }
           .reject { |n| n == :complete }
-          .tap { |n| puts n }
           .map { |n| [I18n.t("activerecord.events.bot/#{n}"), n] }
     )
   end

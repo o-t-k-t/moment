@@ -31,6 +31,10 @@ ja:
       bot/pend: 一時停止
       bot/resume: 再開
       bot/complete: 完了
+    status:
+      running: 稼働中
+      pending: 停止中
+      completed: 動作完了
   errors:
     messages:
       invalid_date: "が無効な日付です"
