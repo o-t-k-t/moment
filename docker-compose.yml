@@ -12,13 +12,18 @@ services:
       - .:/usr/src/moment
     depends_on:
       - postgresql
+      - redis
   postgresql:
     image: postgres:9.6-alpine
     environment:
       POSTGRES_USER: 'postgres'
-      POSTGRESQL_PASSWORD: 'password'
+      POSTGRES_PASSWORD: 'password'
       TZ: 'Asia/Tokyo'
     ports:
       - '5432:5432'
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
   redis:
     image: redis:5.0-alpine
+    ports:
+      - '6379:6379'
