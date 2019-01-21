@@ -1,36 +1,29 @@
-FROM ruby:2.5.3
+# イメージ容量削減のため、Alpineベースとしてhttps://blog.kasei-san.com/entry/2018/03/11/002752を参考に作成
+FROM ruby:2.5.3-alpine
 
 ENV APP_ROOT /usr/src/moment
-
 WORKDIR $APP_ROOT
-
-RUN apt-get update && \
-    apt-get install -y nodejs \
-                       mysql-client \
-                       postgresql-client \
-                       sqlite3 \
-                       --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
 
 COPY Gemfile $APP_ROOT
 COPY Gemfile.lock $APP_ROOT
 
-RUN \
-  apt-get update && apt-get install -y curl apt-transport-https wget && \
-  curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-  apt-get update && apt-get install -y yarn
-
-RUN \
-  echo 'gem: --no-document' >> ~/.gemrc && \
-  cp ~/.gemrc /etc/gemrc && \
-  chmod uog+r /etc/gemrc && \
-  bundle config --global build.nokogiri --use-system-libraries && \
-  bundle config --global jobs 4 && \
-  bundle install && \
-  rm -rf ~/.gem
+RUN apk upgrade --no-cache && \
+    apk add --update --no-cache \
+      postgresql-client \
+      nodejs \
+      tzdata && \
+    apk add --update --no-cache --virtual=build-dependencies \
+      build-base \
+      curl-dev \
+      linux-headers \
+      libxml2-dev \
+      libxslt-dev \
+      postgresql-dev \
+      ruby-dev \
+      yaml-dev \
+      zlib-dev && \
+    gem install bundler && \
+    bundle install -j4 && \
+    apk del build-dependencies
 
 COPY . $APP_ROOT
-
-EXPOSE  3000
-CMD ["rails", "server", "-b", "0.0.0.0"]
