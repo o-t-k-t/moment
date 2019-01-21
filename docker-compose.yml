@@ -1,0 +1,24 @@
+version: '2'
+services:
+  app:
+    container_name: moment
+    build: .
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'password'
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/moment
+    depends_on:
+      - postgresql
+  postgresql:
+    image: postgres:9.6-alpine
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRESQL_PASSWORD: 'password'
+      TZ: 'Asia/Tokyo'
+    ports:
+      - '5432:5432'
+  redis:
+    image: redis:5.0-alpine
