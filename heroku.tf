@@ -1,5 +1,13 @@
 variable "heroku_email" {}
 variable "heroku_api_key" {}
+variable "gcs_credential_file" {}
+
+terraform {
+  backend "gcs" {
+    bucket  = "complimentary-terraform-state"
+    prefix  = "moment-bot-trade"
+  }
+}
 
 # Configure the Heroku provider
 provider "heroku" {
