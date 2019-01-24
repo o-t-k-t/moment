@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql
+  labels:
+    app: moment
+spec:
+  ports:
+    - port: 5432
+  selector:
+    app: moment
+    tier: postgresql
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: postgresql-pv
+  labels:
+    type: local
+spec:
+  capacity:
+    storage: 4Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/tmp/data"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: postgresql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+---
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: postgresql
+  labels:
+    app: moment
+spec:
+  replicas: 1
+  selector:
+    app: moment
+    tier: postgresql
+  template:
+    metadata:
+      name: postgresql
+      labels:
+        app: moment
+        tier: postgresql
+    spec:
+      volumes:
+      - name: postgresql-pv
+        persistentVolumeClaim:
+          claimName: postgresql-pvc
+      containers:
+      - name: postgresql
+        image: postgres:9.6-alpine
+        env:
+        - name: POSTGRES_USER
+          value: moment
+          # valueFrom:
+          #   secretKeyRef:
+          #     name: db-user
+          #     key: username
+        - name: POSTGRES_PASSWORD
+          value: password
+          # valueFrom:
+          #   secretKeyRef:
+          #     name: db-user-pass
+          #     key: password
+        - name: POSTGRES_DB
+          value: moment_development
+        - name: PGDATA
+          value: /var/lib/postgresql/data
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: "/var/lib/postgresql/data"
+          name: postgresql-pv

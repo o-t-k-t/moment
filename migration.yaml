@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migration
+spec:
+  template:
+    metadata:
+      name: migration
+    spec:
+      containers:
+      - name: migration
+        image: otkt/sample-image:0.1
+        # image: us.gcr.io/moment-bot-trade/app
+        command: ["bundle", "exec", "rails", "db:migrate"]
+        env:
+        - name: POSTGRES_USER
+          value: "moment"
+        - name: POSTGRES_PASSWORD
+          value: 'password'
+        - name: RAILS_APP
+          value: "production"
+        - name: REDIS_URL
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: "secret-key-base"
+              key: "secret-key-base"
+      restartPolicy: Never

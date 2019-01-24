@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: rails
+spec:
+  replicas: 1
+  selector:
+    app: rails
+    tier: app
+  template:
+    metadata:
+      name: rails
+      labels:
+        app: rails
+        tier: app
+    spec:
+      containers:
+      - name: rails
+        image: otkt/sample-image:0.1
+        command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
+        # args: ["/usr/local/bundle/bin/rails s -p 3000 -b 0.0.0.0"]
+        env:
+        - name: POSTGRES_USER
+          value: "moment"
+        - name: POSTGRES_PASSWORD
+          value: 'password'
+        # - name: DATABASE_NAME
+        #   value: "moment_production"
+        # - name: DATABASE_PORT
+        #   value: "5432"
+        # - name: DATABASE_USER
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "db-user"
+        #       key: "username"
+        # - name: DATABASE_PASSWORD
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: "db-user-pass"
+        #       key: "password"
+        - name: RAILS_APP
+          value: "production"
+        - name: RAILS_LOG_TO_STDOUT
+          value: "true"
+        - name: RAILS_SERVE_STATIC_ASSETS
+          value: "true"
+        - name: REDIS_URL
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: SECRET_KEY_BASE
+          valueFrom:
+            secretKeyRef:
+              name: "secret-key-base"
+              key: "secret-key-base"
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rails
+  labels:
+    app: moment
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 3000
+  selector:
+    app: rails
