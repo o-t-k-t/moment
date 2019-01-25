@@ -8,9 +8,6 @@
     = f.hidden_field :dca_settlment_amount
     = f.hidden_field :dca_interval_unit
     = f.hidden_field :dca_interval_value
-    .field.is-horizontal
-      .field-label= ''
-      .field-body
-        .field
-          .control
-            = f.submit t('next'), class: 'button'
+    .field
+      .control.has-text-centered
+        = f.submit t('create'), class: 'button'

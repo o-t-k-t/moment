@@ -43,10 +43,7 @@
     = f.hidden_field :type
     = f.hidden_field :currency_pair_id
     = f.hidden_field :user_id, value: current_user.id
-    .field.is-horizontal
-      .field-label= ''
-      .field-body
-        .field
-          .control
-            = f.submit t('next'), class: 'button'
+    .field
+      .control.has-text-centered
+        = f.submit t('next'), class: 'button'
 

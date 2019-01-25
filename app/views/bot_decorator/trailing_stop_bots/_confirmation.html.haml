@@ -6,9 +6,6 @@
     = f.hidden_field :level_base
     = f.hidden_field :level_slope
     = f.hidden_field :ts_key_amount
-    .field.is-horizontal
-      .field-label= ''
-      .field-body
-        .field
-          .control
-            = f.submit t('next'), class: 'button'
+    .field
+      .control.has-text-centered
+        = f.submit t('create'), class: 'button'
