@@ -1,5 +1,5 @@
 cp = CurrencyPair.create!(
-  name: 'btcjpy',
+  name: 'btc_jpy',
   key_currency: 'btc',
   settlement_currency: 'jpy'
 )
