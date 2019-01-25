@@ -45,7 +45,7 @@ class DollcostAverageBot < Bot
       if res['success']
         "#{currency_pair.name}を#{dca_settlment_amount}#{currency_pair.settlement_currency}購入しました"
       else
-        "#{currency_pair.name}を#{dca_settlment_amount}#{currency_pair.settlement_currency}購入しましたが、「#{res&.error}」となりました"
+        "#{currency_pair.name}を#{dca_settlment_amount}#{currency_pair.settlement_currency}購入しましたが、「#{res['error']}」となりました"
       end
 
     order_logs.create(job_id: job_id, message: msg, currency_pair_id: currency_pair.id)
