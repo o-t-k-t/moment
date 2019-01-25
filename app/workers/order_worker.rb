@@ -8,7 +8,5 @@ class OrderWorker
     logger.info "Before oder #{b.class}-#{b.id} status: #{b.status}"
     b.order(jid)
     logger.info "After oder #{b.class}-#{b.id} float_ratestatus: #{b.status}"
-
-    BotMailer.complete_mail(b).deliver
   end
 end
