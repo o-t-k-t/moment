@@ -7,8 +7,7 @@ class Bot < ApplicationRecord
   belongs_to :user
   has_many :order_logs, dependent: :nullify
 
-  # validates :currency_pair_id, presence: true
-  # validates :status, presence: true
+  validate :requre_user_has_api_key
 
   aasm column: 'status' do
     state :running, initial: true
@@ -46,6 +45,12 @@ class Bot < ApplicationRecord
   end
 
   private
+
+  def requre_user_has_api_key
+    return if user&.api_key.present? && user&.secret_key.present?
+
+    errors.add(:attachments, 'APIキーを登録しましょう')
+  end
 
   def post_needs_to_order?(_rate)
     raise 'No Implementation'

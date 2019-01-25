@@ -1,13 +1,21 @@
 class ApisController < ApplicationController
   def edit
-    @user = User.new
+    @user = current_user
   end
 
   def update
-    if current_user.update_attributes(api_key: params[:api_key], secret_key: params[:secret_key])
+    @user = current_user
+
+    if @user.update(api_params)
       redirect_to bots_path, notice: 'APIキーが登録されました'
     else
       render :edit
     end
+  end
+
+  private
+
+  def api_params
+    params.require(:user).permit(:api_key, :secret_key)
   end
 end

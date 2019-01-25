@@ -15,6 +15,8 @@ class User < ApplicationRecord
                                    else
                                      ENV['MOMENT_USER_API_KEY_CRYPTION_KEY']
                                    end
-
   has_many :bots, dependent: :destroy
+
+  validates :api_key, length: { is: 16 }
+  validates :secret_key, length: { is: 32 }
 end
