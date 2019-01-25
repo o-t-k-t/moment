@@ -17,6 +17,6 @@ class User < ApplicationRecord
                                    end
   has_many :bots, dependent: :destroy
 
-  validates :api_key, length: { is: 16 }
-  validates :secret_key, length: { is: 32 }
+  validates :api_key, allow_nil: true, length: { is: 16 }
+  validates :secret_key, allow_nil: true, length: { is: 32 }
 end
