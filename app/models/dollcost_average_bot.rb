@@ -17,7 +17,7 @@ class DollcostAverageBot < Bot
     # 完了判定
     if Float(rate) > thresh
       complete!
-      BotMailer.complete_mail(b).deliver
+      BotMailer.complete_mail(self).deliver
       return false
     end
 
