@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :bot_creation_steps, only: %i[show update]
 
   devise_for :users
+  resource :api, only: %i[edit update]
 
   mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

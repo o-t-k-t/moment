@@ -16,6 +16,7 @@
           - if user_signed_in?
             .navbar-item= link_to 'Bot一覧', bots_path, class: 'navbar-item'
             .navbar-item= link_to 'Bot作成', bots_path, method: :post, class: 'navbar-item'
+            .navbar-item= link_to 'APIキー登録', edit_api_path, class: 'navbar-item'
             .navbar-item= link_to current_user.email, root_path, class: 'navbar-item'
             .navbar-item
               .buttons= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'button is-light'

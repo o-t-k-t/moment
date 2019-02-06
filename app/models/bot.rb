@@ -7,8 +7,7 @@ class Bot < ApplicationRecord
   belongs_to :user
   has_many :order_logs, dependent: :nullify
 
-  # validates :currency_pair_id, presence: true
-  # validates :status, presence: true
+  validate :requre_user_has_api_key
 
   aasm column: 'status' do
     state :running, initial: true
@@ -34,10 +33,10 @@ class Bot < ApplicationRecord
     post_needs_to_order?(rate)
   end
 
-  def order
+  def order(job_id)
     return unless status == 'running'
 
-    post_order
+    post_order(job_id)
   end
   # このガード節DRYじゃないが、拡張性必要なのでこのままでいい
 
@@ -46,6 +45,12 @@ class Bot < ApplicationRecord
   end
 
   private
+
+  def requre_user_has_api_key
+    return if user&.api_key.present? && user&.secret_key.present?
+
+    errors.add(:attachments, 'APIキーを登録しましょう')
+  end
 
   def post_needs_to_order?(_rate)
     raise 'No Implementation'
@@ -57,7 +62,7 @@ class Bot < ApplicationRecord
 
   # 具象クラス向けメソッド
   def coincheck_client
-    @coincheck_client || CoincheckClient.new(ENV['API_KEY'], ENV['SECRET_KEY'])
+    @coincheck_client || CoincheckClient.new(user.api_key, user.secret_key)
   end
 
   def thresh

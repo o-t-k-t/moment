@@ -1,0 +1,26 @@
+%section.section
+  .container
+    = form_with model: @user, url: api_path, method: :put, local: true do |f|
+      - if @user.errors.any?
+        %article.message.is-warning
+          .message-header
+            .p 入力に誤りがあります
+          .message-body
+            %ul
+              - @user.errors.full_messages.each do |message|
+                %li= message
+      - elsif @user.api_key.nil?
+        %article.message.is-info
+          .message-header
+            .p Coincheck APIキー発行が必要です。
+          .message-body
+            .p #{link_to 'Coincheck', coincheck_reference_path}より、APIキーの発行をお願いいたします。パーミッションは「新規注文」のみ有効としてください。また、IP制限は行わないでください。
+      .field
+        = f.label :api_key
+        %p.control= f.text_field :api_key, class: 'input'
+      .field
+        = f.label :secret_key
+        %p.control= f.text_field :secret_key, class: 'input'
+      .field
+        .control
+          = f.submit t('create'), class: 'button'

@@ -36,6 +36,6 @@ class BotsController < ApplicationController
     return nil if params[:status_event].nil?
     raise 'Illegal event received' if %w[resume pend].exclude?(params[:status_event])
 
-    params[:status_event].permit
+    params[:status_event]
   end
 end
