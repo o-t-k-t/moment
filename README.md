@@ -1,3 +1,12 @@
+
+
+[![ruby version](https://img.shields.io/badge/Ruby-v2.5.3-green.svg)](https://www.ruby-lang.org/ja/)
+[![rails version](https://img.shields.io/badge/Rails-v5.2.1-brightgreen.svg)](http://rubyonrails.org/)
+[![CircleCI](https://circleci.com/gh/o-t-k-t/moment.svg?style=svg)](https://circleci.com/gh/o-t-k-t/moment)
+[![Maintainability](https://api.codeclimate.com/v1/badges/b8fead6e007949d784c0/maintainability)](https://codeclimate.com/github/o-t-k-t/moment/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/b8fead6e007949d784c0/test_coverage)](https://codeclimate.com/github/o-t-k-t/moment/test_coverage)
+
+
 # README
 
 ## 要件定義
