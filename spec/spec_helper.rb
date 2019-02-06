@@ -1,5 +1,6 @@
 require 'webmock/rspec'
 require 'vcr'
+require 'simplecov'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
@@ -19,3 +20,5 @@ VCR.configure do |config|
   config.allow_http_connections_when_no_cassette = false
   config.configure_rspec_metadata!
 end
+
+SimpleCov.start
