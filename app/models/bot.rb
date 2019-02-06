@@ -28,15 +28,11 @@ class Bot < ApplicationRecord
 
   # 注文要否・実行のTemplate Method
   def needs_to_order?(rate)
-    return false unless status == 'running'
-
     post_needs_to_order?(rate)
   end
 
-  def order(job_id)
-    return unless status == 'running'
-
-    post_order(job_id)
+  def order(job_id, timestamp)
+    post_order(job_id, timestamp)
   end
   # このガード節DRYじゃないが、拡張性必要なのでこのままでいい
 
@@ -56,13 +52,13 @@ class Bot < ApplicationRecord
     raise 'No Implementation'
   end
 
-  def post_order(_client)
+  def post_order(job_id, timestamp)
     raise 'No Implementation'
   end
 
   # 具象クラス向けメソッド
-  def coincheck_client
-    @coincheck_client || CoincheckClient.new(user.api_key, user.secret_key)
+  def coincheck_client(timestamp)
+    @coincheck_client || OnetimeCoincheckClient.new(timestamp, user.api_key, user.secret_key)
   end
 
   def thresh

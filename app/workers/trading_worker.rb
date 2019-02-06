@@ -1,11 +1,5 @@
-class TradingWorker
-  include Sidekiq::Worker
-
-  sidekiq_options retry: 3
-
-  sidekiq_retries_exhausted do |msg, _ex|
-    Sidekiq.logger.warn "Failed #{msg['class']} with #{msg['args']}: #{msg['error_message']}"
-  end
+class TradingWorker < ApplicationWorker
+  sidekiq_options retry: 0
 
   # 現在値を取得し、注文が必要なBot数分、注文ジョブをエンキュー
   def perform(*_args)
@@ -19,7 +13,7 @@ class TradingWorker
        .select { |b| b.needs_to_order?(rate) }
        .each do |b|
          logger.info "Dispatch #{b.class}-#{b.id}"
-         OrderWorker.perform_async(b.id)
+         OrderWorker.perform_async(b.id, (Time.now.to_f * 1_000_000).to_i)
        end
   end
 

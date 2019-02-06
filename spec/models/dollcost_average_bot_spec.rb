@@ -108,7 +108,7 @@ RSpec.describe DollcostAverageBot, type: :model do
         user: user
       )
 
-      bot.order('jobjobjob')
+      bot.order('jobjobjob', Time.zone.local(2018, 11, 12, 13, 14, 15))
 
       expect(stub).to have_been_requested.once
     end

@@ -1,6 +1,6 @@
 # 発行直前に取得していたNonce用タイムスタンプ値をオブジェクトの生成パラメータとすることで、
 # このクライアントインスタンスから発行するリクエストが単一のみとなることを保証する(2回目以降はCCサーバで破棄)
-class OneTimeCoincheckClient < CoincheckClient
+class OnetimeCoincheckClient < CoincheckClient
   def self.create_nonce
     (Time.now.to_f * 1_000_000).to_i
   end
