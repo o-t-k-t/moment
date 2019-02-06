@@ -52,7 +52,7 @@ class Bot < ApplicationRecord
     raise 'No Implementation'
   end
 
-  def post_order(job_id, timestamp)
+  def post_order(_job_id, _timestamp)
     raise 'No Implementation'
   end
 
