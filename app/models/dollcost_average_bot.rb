@@ -34,8 +34,8 @@ class DollcostAverageBot < Bot
     last_order_at < order_need_from
   end
 
-  def post_order(job_id)
-    req = coincheck_client.create_orders(
+  def post_order(job_id, timestamp)
+    req = coincheck_client(timestamp).create_orders(
       order_type: 'market_buy',
       market_buy_amount: dca_settlment_amount.to_s,
       pair: currency_pair.name

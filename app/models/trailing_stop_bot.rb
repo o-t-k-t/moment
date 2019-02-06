@@ -8,7 +8,7 @@ class TrailingStopBot < Bot
     Float(rate) <= thresh
   end
 
-  def post_order
+  def post_order(_job_id, _timestamp)
     complete!
   end
 end
