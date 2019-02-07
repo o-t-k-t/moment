@@ -8,7 +8,8 @@ class TradingWorker < ApplicationWorker
 
     logger.info "BTCJPY #{rate}"
 
-    Bot.find_each
+    Bot.in_running
+       .find_each
        .tap { |bots| bots.each { |b| logger.info "Poll #{b.class}-#{b.id} #{b.status}" } }
        .select { |b| b.needs_to_order?(rate) }
        .each do |b|

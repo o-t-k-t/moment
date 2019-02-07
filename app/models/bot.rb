@@ -9,6 +9,8 @@ class Bot < ApplicationRecord
 
   validate :requre_user_has_api_key
 
+  scope :in_running, -> { where(status: 'running') }
+
   aasm column: 'status' do
     state :running, initial: true
     state :pending, :completed
