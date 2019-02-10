@@ -23,7 +23,7 @@ RUN apk upgrade --no-cache && \
       yaml-dev \
       zlib-dev && \
     gem install bundler && \
-    bundle install -j4 && \
+    bundle install --path /usr/local/bundle -j4 && \
     apk del build-dependencies
 
 COPY . $APP_ROOT
