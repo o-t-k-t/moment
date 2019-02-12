@@ -62,29 +62,74 @@ https://docs.google.com/spreadsheets/d/1Ak05gPOlvsB912fJ_6BfuKWz2lZPRgJ2-1wl3hPR
 
 https://docs.google.com/presentation/d/1IX3wxLBbS2EAUZUL-kegOxHp70ECoq5hhX2UL0sjK9A/edit?usp=sharing
 
-### 使用予定Gem
+### 使用　Gem
 
 - Sidekiq
 - AASM
 - Devise
 
+## 開発方法
 
+## デプロイ・開発の流れ
 
+下図に示すように、当GitHub Repository上で開発を行います。
+通常のGitHub FlowにCircle CIでのテストを加えた形で承認レビューを行い、マージ後、Web HookによりHerokuに自動デプロイされます。
 
+```
+GitHub
+|
+| Clone
+↓
+local repos.                    　　　　　　         GitHub           Circle CI                 GitHub                             Heroku
+master branch - (your change) -> feature branch -> feature branch - (Test, Static Analyze) -> (Pull Request Review) -> master -> master -> Produnction Environment
+                  ↑                                                                 |                          |
+                  ---------------------------------------------------------------------------------------------
 
+NOTE: 現状、本番環境は実取引を制限しています(開発環境では有効な設定を行えば実際に自動取引が行われます。ご注意ください)。
 
+### 開発に必要なソフトウェア
 
+- rbenv 1.1.1 or laer
+- Bundler 1.17.0 or later
+- PostgreSQL
+- Redis 5.0.2
 
+### ローカル環境での起動方法
+このリポジトリをローカルの任意のディレクトリにクローン。
 
+```
+git clone git@github.com:o-t-k-t/moment.git
+```
 
+リポジトリの作業ディレクトリに移動し、Gemをインストール。
 
+```
+cd moment
+bundle install --path vendor/bundle
+```
 
+データベース作成・初期化
 
+```
+bundle exec rails db:create
+bundle exec rails db:migrate
+bundle exec rails db:seed
+```
 
+別ターミナルを開き、Redisサーバを起動
 
+```
+redis-server /usr/local/etc/redis.conf
+```
 
+さらに別ターミナルを開き、ワーカープロセスを起動
 
+```
+bundle exec sidekiq
+```
 
+元のターミナルに戻りwebサーバを起動
 
-
-
+```
+bundle exec rails s
+```
