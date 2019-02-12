@@ -84,8 +84,9 @@ local repos.                    　　　　　　         GitHub           Circ
 master branch - (your change) -> feature branch -> feature branch - (Test, Static Analyze) -> (Pull Request Review) -> master -> master -> Produnction Environment
                   ↑                                                                 |                          |
                   ---------------------------------------------------------------------------------------------
+```
 
-NOTE: 現状、本番環境は実取引を制限しています(開発環境では有効な設定を行えば実際に自動取引が行われます。ご注意ください)。
+現状、本番環境は実取引を制限しています(開発環境では有効な設定を行えば実際に自動取引が行われます。ご注意ください)。
 
 ### 開発に必要なソフトウェア
 
