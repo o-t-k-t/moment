@@ -60,7 +60,7 @@ class Bot < ApplicationRecord
 
   # 具象クラス向けメソッド
   def coincheck_client(timestamp)
-    @coincheck_client || OnetimeCoincheckClient.new(timestamp, user.api_key, user.secret_key)
+    OnetimeCoincheckClient.new(timestamp, user.api_key, user.secret_key)
   end
 
   def thresh

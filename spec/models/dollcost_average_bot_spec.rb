@@ -107,10 +107,31 @@ RSpec.describe DollcostAverageBot, type: :model do
         dca_settlment_amount: 5000,
         user: user
       )
-
       bot.order('jobjobjob', Time.zone.local(2018, 11, 12, 13, 14, 15))
 
       expect(stub).to have_been_requested.once
+    end
+
+    it 'sends idempotent request with equivalancy of nonce' do
+      stub = stub_request(:post, ODERS_URL).to_return(status: 200, body: { success: true }.to_json)
+      bot = create(:dollcost_average_bot, currency_pair_id: cp.id, user: user)
+      base = Time.zone.local(2018, 11, 12, 0, 0, 0)
+      request = nil
+
+      bot.order('jobjobjob', base)
+
+      request_save_proc =
+        proc do |req|
+          request = req
+          true
+        end
+
+      expect(stub).to have_requested(:post, ODERS_URL).with(&request_save_proc).once
+
+      bot.order('jobjobjob', base + 30.seconds)
+
+      request_compare_proc = proc { |req| request == req }
+      expect(stub).to have_requested(:post, ODERS_URL).with(&request_compare_proc).once
     end
   end
 end
