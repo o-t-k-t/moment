@@ -16,4 +16,10 @@ FactoryBot.define do
       dca_interval_value 1
     end
   end
+
+  factory :trailing_stop_bot do
+    level_base 4_000_000
+    level_slope 100
+    ts_key_amount 0.4
+  end
 end
