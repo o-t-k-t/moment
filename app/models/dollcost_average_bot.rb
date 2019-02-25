@@ -52,6 +52,10 @@ class DollcostAverageBot < Bot
     order_logs.create(job_id: job_id, message: msg, currency_pair_id: currency_pair.id)
   end
 
+  def post_giveup
+    # NOP
+  end
+
   private
 
   def requre_rounded_inerval

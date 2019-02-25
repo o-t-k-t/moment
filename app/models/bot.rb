@@ -38,6 +38,11 @@ class Bot < ApplicationRecord
   end
   # このガード節DRYじゃないが、拡張性必要なのでこのままでいい
 
+  # 注文処理リトライオーバー時の後片付け処理
+  def giveup
+    post_giveup
+  end
+
   def inherited_bot?
     is_a?(Bot) && !instance_of?(Bot)
   end
@@ -55,6 +60,10 @@ class Bot < ApplicationRecord
   end
 
   def post_order(_job_id, _timestamp)
+    raise 'No Implementation'
+  end
+
+  def post_giveup
     raise 'No Implementation'
   end
 

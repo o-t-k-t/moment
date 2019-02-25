@@ -27,4 +27,9 @@ class TrailingStopBot < Bot
 
     complete!
   end
+
+  def post_giveup
+    # 1ジョブで成功しなければNonceが更新されるため多重注文防止を担保不可となるので閉塞する。
+    complete!
+  end
 end

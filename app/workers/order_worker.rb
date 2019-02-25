@@ -1,6 +1,11 @@
 class OrderWorker < ApplicationWorker
   sidekiq_options retry: 2
 
+  sidekiq_retries_exhausted do |msg, _e|
+    b = Bot.find(msg['args'].first)
+    b.giveup
+  end
+
   def perform(bid, timestamp)
     b = Bot.find(bid)
 
