@@ -8,7 +8,23 @@ class TrailingStopBot < Bot
     Float(rate) <= thresh
   end
 
-  def post_order(_job_id, _timestamp)
+  def post_order(job_id, timestamp)
+    req = coincheck_client(timestamp).create_orders(
+      order_type: 'market_sell',
+      amount: ts_key_amount.to_s,
+      pair: currency_pair.name
+    )
+    res = JSON.parse(req.body)
+
+    msg =
+      if res['success']
+        "#{currency_pair.name}を#{ts_key_amount}#{currency_pair.key_currency}購入しました"
+      else
+        "#{currency_pair.name}を#{ts_key_amount}#{currency_pair.key_currency}購入しましたが、「#{res['error']}」となりました"
+      end
+
+    order_logs.create(job_id: job_id, message: msg, currency_pair_id: currency_pair.id)
+
     complete!
   end
 end

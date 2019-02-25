@@ -3,6 +3,9 @@ require 'rails_helper'
 RSpec.describe TrailingStopBot, type: :model do
   using RSpec::Parameterized::TableSyntax
 
+  let!(:cp) { create(:currency_pair) }
+  let!(:user) { create(:user) }
+
   describe `#needs_to_order?` do
     context 'Sometime rate change into some value' do
       where(:rate_move, :difference_time, :current_rate, :be_truthy?) do
@@ -35,6 +38,25 @@ RSpec.describe TrailingStopBot, type: :model do
           end
         end
       end
+    end
+  end
+
+  describe '#order' do
+    ODERS_URL = 'https://coincheck.com/api/exchange/orders'.freeze
+
+    it 'sends a sell request' do
+      stub = stub_request(:post, ODERS_URL).to_return(status: 200, body: { success: true }.to_json)
+
+      bot = TrailingStopBot.create!(
+        currency_pair_id: cp.id,
+        level_base: 4_000_000,
+        level_slope: 100,
+        ts_key_amount: 0.4,
+        user: user
+      )
+      bot.order('jobjobjob', Time.zone.local(2018, 11, 12, 13, 14, 15))
+
+      expect(stub).to have_been_requested.once
     end
   end
 end
