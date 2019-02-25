@@ -18,9 +18,9 @@ class TrailingStopBot < Bot
 
     msg =
       if res['success']
-        "#{currency_pair.name}を#{ts_key_amount}#{currency_pair.key_currency}購入しました"
+        "#{currency_pair.name}を#{ts_key_amount}#{currency_pair.key_currency}売却しました"
       else
-        "#{currency_pair.name}を#{ts_key_amount}#{currency_pair.key_currency}購入しましたが、「#{res['error']}」となりました"
+        "#{currency_pair.name}を#{ts_key_amount}#{currency_pair.key_currency}売却しましたが、「#{res['error']}」となりました"
       end
 
     order_logs.create(job_id: job_id, message: msg, currency_pair_id: currency_pair.id)
