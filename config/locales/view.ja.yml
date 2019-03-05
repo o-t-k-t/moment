@@ -42,7 +42,7 @@ ja:
     parameter_input: パラメータ設定
     confirmation: 内容確認
     creation: Bot作成
-  dollcost_average_bots:
+  dollar_cost_average_bots:
     strategy: ドルコスト平均法
     introduction: 5000円など決済通貨での固定の少額で定期的な積立を行います。短期的に下落、中長期的に上昇しているケースを想定しており、指定ペースでの下落が終わったあと、動作を終了します。
     description:  "%{interval}毎に%{key}を%{amount}円ずつ購入します。価格推移が指定ペースを上回ったら、動作を終了します"

@@ -1,5 +1,5 @@
 FactoryBot.define do
-  factory :dollcost_average_bot do
+  factory :dollar_cost_average_bot do
     level_base 4_000_000
     level_slope(-0.000_001)
     dca_interval_unit :day

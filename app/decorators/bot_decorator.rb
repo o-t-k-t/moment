@@ -4,14 +4,14 @@ class BotDecorator < ApplicationDecorator
   decorates_association :currency_pair
 
   REFERENCE_PATHS = {
-    dollcost_average_bots: 'https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%AB%E3%83%BB%E3%82%B3%E3%82%B9%E3%83%88%E5%B9%B3%E5%9D%87%E6%B3%95',
+    dollar_cost_average_bots: 'https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%AB%E3%83%BB%E3%82%B3%E3%82%B9%E3%83%88%E5%B9%B3%E5%9D%87%E6%B3%95',
     trailing_stop_bots: 'http://www.theacademy-ibt.com/'
   }.freeze
 
   def each_concrete_class_name
     # FIXME: STIのサブクラスが読み込まれないためのWA
     # rubocop:disable all
-    DollcostAverageBot
+    DollarCostAverageBot
     TrailingStopBot
     # rubocop:enable all
 
@@ -35,9 +35,9 @@ class BotDecorator < ApplicationDecorator
 
   def description
     case object
-    when DollcostAverageBot
+    when DollarCostAverageBot
       I18n.t(
-        'dollcost_average_bots.description',
+        'dollar_cost_average_bots.description',
         interval: interval,
         key: currency_pair.key_currency,
         amount: dca_settlment_amount
@@ -57,13 +57,13 @@ class BotDecorator < ApplicationDecorator
     format(
       '%<value>d %<unit>s',
       value: object.dca_interval_value,
-      unit: I18n.t("dollcost_average_bots.#{object.dca_interval_unit}")
+      unit: I18n.t("dollar_cost_average_bots.#{object.dca_interval_unit}")
     )
   end
 
   def interval_units_for_select
     h.options_for_select(
-      Bot.dca_interval_units.keys.map { |iu| [I18n.t("dollcost_average_bots.#{iu}"), iu] }
+      Bot.dca_interval_units.keys.map { |iu| [I18n.t("dollar_cost_average_bots.#{iu}"), iu] }
     )
   end
 
