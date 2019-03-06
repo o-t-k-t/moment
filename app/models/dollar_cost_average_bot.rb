@@ -1,4 +1,4 @@
-class DollcostAverageBot < Bot
+class DollarCostAverageBot < Bot
   ACCEPTABLE_INTERVALS = {
     'day': [1, 3, 7].freeze,
     'hour': [1, 2, 3, 4, 6, 12].freeze,

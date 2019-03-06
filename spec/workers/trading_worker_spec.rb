@@ -29,10 +29,10 @@ RSpec.describe TradingWorker, :vcr, type: :worker do
         it 'kicks order to running bots' do
           travel_to(Time.zone.local(2018, 11, 10, 0, 0, 0)) do
             runnings.times do
-              create(:dollcost_average_bot, :every_minute, user: user, currency_pair: cp)
+              create(:dollar_cost_average_bot, :every_minute, user: user, currency_pair: cp)
             end
             pendings.times do
-              b = create(:dollcost_average_bot, :every_minute, user: user, currency_pair: cp)
+              b = create(:dollar_cost_average_bot, :every_minute, user: user, currency_pair: cp)
               b.pend!
             end
           end

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe DollcostAverageBot, type: :model do
+RSpec.describe DollarCostAverageBot, type: :model do
   using RSpec::Parameterized::TableSyntax
 
   let!(:cp) { create(:currency_pair) }
@@ -22,7 +22,7 @@ RSpec.describe DollcostAverageBot, type: :model do
           tsb = nil
 
           travel_to(base) do
-            tsb = DollcostAverageBot.create!(
+            tsb = DollarCostAverageBot.create!(
               currency_pair_id: cp.id,
               level_base: 4_000_000,
               level_slope: rate_move,
@@ -73,7 +73,7 @@ RSpec.describe DollcostAverageBot, type: :model do
           tsb = nil
 
           travel_to(base) do
-            tsb = DollcostAverageBot.create!(
+            tsb = DollarCostAverageBot.create!(
               currency_pair_id: cp.id,
               level_base: 4_000_000,
               level_slope: -0.010_000,
@@ -98,7 +98,7 @@ RSpec.describe DollcostAverageBot, type: :model do
     it 'sends a buy request' do
       stub = stub_request(:post, ODERS_URL).to_return(status: 200, body: { success: true }.to_json)
 
-      bot = DollcostAverageBot.create!(
+      bot = DollarCostAverageBot.create!(
         currency_pair_id: cp.id,
         level_base: 4_000_000,
         level_slope: -100,
@@ -114,7 +114,7 @@ RSpec.describe DollcostAverageBot, type: :model do
 
     it 'sends idempotent request with equivalancy of nonce' do
       stub = stub_request(:post, ODERS_URL).to_return(status: 200, body: { success: true }.to_json)
-      bot = create(:dollcost_average_bot, currency_pair_id: cp.id, user: user)
+      bot = create(:dollar_cost_average_bot, currency_pair_id: cp.id, user: user)
       base = Time.zone.local(2018, 11, 12, 0, 0, 0)
       request = nil
 
