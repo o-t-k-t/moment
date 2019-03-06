@@ -4,7 +4,7 @@ class BotCreationStepsController < ApplicationController
   steps :type_selection, :parameter_input, :confirmation, :creation
 
   def show
-    @currency_pairs = CurrencyPair.all
+    @currency_pairs = CurrencyPair.all.decorate
 
     case step
     when :type_selection
