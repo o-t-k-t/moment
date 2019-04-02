@@ -21,6 +21,6 @@ class TradingWorker < ApplicationWorker
   private
 
   def coincheck_client
-    @coincheck_client || CoincheckClient.new
+    @coincheck_client ||= CoincheckClient.new
   end
 end
