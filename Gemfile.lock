@@ -263,7 +263,7 @@ GEM
     pry-rails (0.3.8)
       pry (>= 0.10.4)
     public_suffix (3.0.3)
-    puma (3.12.0)
+    puma (3.12.2)
     raabro (1.1.6)
     rack (2.0.6)
     rack-protection (2.0.4)
@@ -520,7 +520,7 @@ DEPENDENCIES
   loofah (>= 2.2.3)
   pg (~> 0.18)
   pry-rails
-  puma (~> 3.7)
+  puma (~> 3.12)
   rack (>= 2.0.6)
   rails (~> 5.2.1)
   reform-rails
