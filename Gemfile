@@ -13,7 +13,7 @@ gem 'dotenv-rails'
 
 # ミドルウェア
 gem 'pg', '~> 0.18'
-gem 'puma', '~> 3.7'
+gem 'puma', '~> 4.3'
 gem 'rack', '>= 2.0.6'
 
 # バッチ処理
